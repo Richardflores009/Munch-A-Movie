@@ -7,8 +7,8 @@ var historyEl = document.querySelector(".history");
 var recipeContainerEl = document.querySelector(".recipe-cont");
 var movieName = JSON.parse(localStorage.getItem("movies"));
 var genreName = JSON.parse(localStorage.getItem("genre"));
-var movieApiKey = "";
-var recipeApiKey = "";
+var rMovieApiKey = "&apiKey=0c7c604f01a143d598df0735356390c3";
+var rRecipeApiKey = "apikey=84c248ca";
 
 // Local Storage Function for Movie Search History
 var historyStorage = function(name) {
@@ -32,8 +32,10 @@ var genreStorage = function(genre) {
 
 // API Fetches
 // Movie Poster Fetch
-var getMoviePoster = function(name) {
-    var apiUrl = "";
+var getMoviePoster = function(movie) {
+    var apiUrl = `http://www.omdbapi.com/?${rRecipeApiKey}&t=${movie}`;
+
+
     fetch(apiUrl).then(function(response) {
         //request was successful
         if(response.ok) {
@@ -51,9 +53,10 @@ var getMoviePoster = function(name) {
 // If Statement for Pairing Movie Genre with Ingredients
 
 //Fetch
-var getRecipes = function() {
-    var api = "";
-        fetch(apiUrl).then(function(reponse) {
+var getRecipes = function(meal) {
+    var api = `https://api.spoonacular.com/recipes/random?number=3&tags=`+ meal + rMovieApiKey;
+    console.log(api)
+        fetch(api).then(function(response) {
         //request as successful
             if(response.ok) {
                 response.json().then(function(recipedata) {
@@ -61,8 +64,9 @@ var getRecipes = function() {
                 })
             }
         })
-    };
-
+        
+};
+getRecipes()
 // Display Movie Poster
 var displayPoster = function(moviedata) {
 
@@ -76,26 +80,40 @@ var displayRecipes = function(recipedata) {
     // Expand Recipe Size Hover
 
 // Global Function | Get Local Storage Names and Pass Into Functions
-var searchHandler = function() {
+var searchHandler = function(genreValue) {
     var searchItem = document.querySelector(".movie-input").value.trim();
 
     if (searchItem) {
         getMoviePoster(searchItem);
         historyStorage(searchItem);
+        document.querySelector('.movie-input').value = ""
     }
-    else {
-        localStorage.setItem("movies", "");
+    
+    if (genreValue) {
+        getRecipes(genreValue);
     }
-    if (genreName) {
-        getRecipes(genreName);
-    }
-    else {
-        localStorage.setItem("genre", "");
-    }
+    
 
 };
 
 //Event Listener for Submit Button
+submitBtnEl.addEventListener("click", searchHandler)
+//repopulate page after refresh
+window.addEventListener('load',
+function(){
+    if(movieName) {
+        getMoviePoster(movieName)
+        historyStorage(movieName)
+        document.querySelector('.movie-input').value = ""
+    } else {
+        localStorage.setItem("movies", "");
+    }
 
-//Event Listeners for Past Movie Name Search Buttons
+    if(genreName) {
+        getRecipes(genreName)
+    } else {
+        localStorage.setItem("genre", "");
+    }
+
+}, false);
 
