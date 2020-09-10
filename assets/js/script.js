@@ -54,14 +54,39 @@ var getMoviePoster = function(movie) {
 
 //Fetch
 var getRecipes = function(meal) {
-    var api = `https://api.spoonacular.com/recipes/random?number=3&tags=`+ meal + rMovieApiKey;
-    console.log(api)
-        fetch(api).then(function(response) {
+    var api = `https://api.spoonacular.com/recipes/random?number=3&tags=chinese` + rMovieApiKey;
+
+
+        fetch(api)
+        .then(function(response) {
+            
         //request as successful
-            if(response.ok) {
-                response.json().then(function(recipedata) {
-                    displayRecipes(recipedata);
-                })
+            return response.json();
+        })
+        .then(function(data){
+            for (let i = 0; i < data.recipes.length; i++){
+                console.log(data)
+                // Recipe name
+                var recipeName = data.recipes[1].title
+
+                // Food image
+                var recipeImage = data.recipes[1].image
+
+                // recipe link
+                var recipeLink = data.recipes[0].sourceUrl
+
+                // ingredient loop
+                for (let ing = 0; ing < data.recipes[0].extendedIngredients.length; ing++) {
+                    var ingList = data.recipes[0].extendedIngredients[ing].name
+                    var ingamount = data.recipes[0].extendedIngredients[ing].amount
+                    var ingUnits = data.recipes[0].extendedIngredients[ing].measures.us.unitLong
+                    var ingShop = ingamount + ' ' + ingUnits
+                }
+
+                // instruction loop
+                for (let inst = 0; inst < data.recipes[0].analyzedInstructions[0].steps.length; inst++){
+                    var cookSteps = data.recipes[0].analyzedInstructions[0].steps[inst].step
+                }
             }
         })
         
@@ -79,41 +104,41 @@ var displayRecipes = function(recipedata) {
 
     // Expand Recipe Size Hover
 
-// Global Function | Get Local Storage Names and Pass Into Functions
-var searchHandler = function(genreValue) {
-    var searchItem = document.querySelector(".movie-input").value.trim();
+// // Global Function | Get Local Storage Names and Pass Into Functions
+// var searchHandler = function(genreValue) {
+//     var searchItem = document.querySelector(".movie-input").value.trim();
 
-    if (searchItem) {
-        getMoviePoster(searchItem);
-        historyStorage(searchItem);
-        document.querySelector('.movie-input').value = ""
-    }
+//     if (searchItem) {
+//         getMoviePoster(searchItem);
+//         historyStorage(searchItem);
+//         document.querySelector('.movie-input').value = ""
+//     }
     
-    if (genreValue) {
-        getRecipes(genreValue);
-    }
+//     if (genreValue) {
+//         getRecipes(genreValue);
+//     }
     
 
-};
+// };
 
-//Event Listener for Submit Button
-submitBtnEl.addEventListener("click", searchHandler)
-//repopulate page after refresh
-window.addEventListener('load',
-function(){
-    if(movieName) {
-        getMoviePoster(movieName)
-        historyStorage(movieName)
-        document.querySelector('.movie-input').value = ""
-    } else {
-        localStorage.setItem("movies", "");
-    }
+// //Event Listener for Submit Button
+// submitBtnEl.addEventListener("click", searchHandler)
+// //repopulate page after refresh
+// window.addEventListener('load',
+// function(){
+//     if(movieName) {
+//         getMoviePoster(movieName)
+//         historyStorage(movieName)
+//         document.querySelector('.movie-input').value = ""
+//     } else {
+//         localStorage.setItem("movies", "");
+//     }
 
-    if(genreName) {
-        getRecipes(genreName)
-    } else {
-        localStorage.setItem("genre", "");
-    }
+//     if(genreName) {
+//         getRecipes(genreName)
+//     } else {
+//         localStorage.setItem("genre", "");
+//     }
 
-}, false);
+// }, false);
 
