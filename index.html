@@ -4,33 +4,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Munch a Movie</title>
+    <title>Munch-A-Movie</title>
+    <link href="https://fonts.googleapis.com/css2?family=Limelight&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./assets/style/style.css">
 </head>
 
 <body>
 
 <!--Main Header-->
-<h1 class="header">Munch a Movie</h1>
-
-<!--Description-->
-<div>
-    <p>Pair your meal with a movie!</p>
-</div>
+<header>
+    <h1 class="header">Munch-A-Movie</h1>
+    <!--Description-->
+    <p>Find the perfect meal to compliment your movie!</p>
+</header>
 
 <!--User Input Form-->
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <div class="card">
-                <h3>Search by Movie</h3>
-                <form></form>
-                <button>Submit</button>
-            </div>
-        </div>
-    </div>
+<div class="card">
+  <h3 class="card-header">Search by Movie Title</h3>
+  <form id="movie-form" class="card-body">
+     <input name="username" id="username" type="text" autofocus="true" class="form-input">
+     <button type="submit" class="btn">Find Film!</button>
+  </form>
 </div>
-
 <!--Movie Poster-->
 <div class="movie"></div>
 
