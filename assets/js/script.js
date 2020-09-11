@@ -6,7 +6,7 @@ var posterEl = document.querySelector(".poster");
 var historyEl = document.querySelector(".history");
 var recipeContainerEl = document.querySelector(".recipe-cont");
 var movieName = localStorage.getItem("movies")
-var genreName = localStorage.getItem("genre")
+var genreName = JSON.parse(localStorage.getItem("genres"))
 var rRecipeApiKey = "&apiKey=0c7c604f01a143d598df0735356390c3";
 var rRecipeApiKey2 = "&apiKey=119f114f6e334171834908713fb964b8"
 var rMovieApiKey = "apikey=84c248ca";
@@ -14,7 +14,7 @@ var rMovieApiKey = "apikey=84c248ca";
 // Local Storage Function for Movie Search History
 var historyStorage = function(name) {
     var movieStore = localStorage.setItem("movies", name)
-    console.log(name)
+   
 
     // Search History Loop
 
@@ -28,7 +28,7 @@ var historyStorage = function(name) {
 
 // Local Storage Function for Genre
 var genreStorage = function(genre) {
-    localStorage.setItem("genre", genre)
+    localStorage.setItem("genres", genre)
 };
 
 // API Fetches
@@ -46,14 +46,17 @@ var getMoviePoster = function(movie) {
     .then(function (data) {
         
         var movieTitle = data.Title
-        var movieGenre = data.Genre.split(',').pop()
+        var movieGenre = data.Genre.split(' ').pop()
         var moviePoster = data.Poster
         var moviePlot = data.Plot
-
-        //set movie genre to searchhandler
-        searchHandler(movieGenre)
         
-        // movieName = movieTitle
+        genreStorage(movieGenre)
+    
+        
+        //set movie genre to searchhandler
+        // searchHandler(movieGenre)
+        
+
     })
     // Alert modal user that fetch was not successful
     // pass response to movie poster display function
@@ -112,22 +115,29 @@ var displayRecipes = function(recipedata) {
 };
 
     // Expand Recipe Size Hover
-    getMoviePoster('star wars');
+
 // // Global Function | Get Local Storage Names and Pass Into Functions
-var searchHandler = function(genreValue) {
+var searchHandler = function() {
+    event.preventDefault()
+    console.log(genreName)
+
+    if (genreName) {
+        // getRecipes(genreValue);
+        // genreStorage(genreName)
+        
+    }  else {
+        localStorage.setItem('genres', "")
+        
+    }
+   
+
+    if (inputEl.value) {
+        getMoviePoster(inputEl.value);
+        historyStorage(inputEl.value);
+        //  document.querySelector('.movie-input').value = ""
+    }
     
-    console.log(inputEl)
-    // var movieTitle = 'superbad'
-    // if (movieTitle) {
-    //     // getMoviePoster(movieTitle);
-    //     historyStorage(movieTitle);
-    // //     document.querySelector('.movie-input').value = ""
-    // }
     
-    // if (genreValue) {
-    //     // getRecipes(genreValue);
-    //     genreStorage(genreValue)
-    // }
 };
 
 // //Event Listener for Submit Button
