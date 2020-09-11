@@ -107,9 +107,12 @@ var getRecipes = function(meal) {
                 contentCardEl.appendChild(imageContainerEl)
                 
                 // Card stacked div holds all content left to append to contentCardEl
+                cardContentEl = document.createElement('div')
+                cardContentEl.setAttribute('class', 'card-stacked')
                 cardStackedEl = document.createElement('div')
                 cardStackedEl.setAttribute('class', 'card-content')
-                contentCardEl.appendChild(cardStackedEl)
+                cardContentEl.appendChild(cardStackedEl)
+                contentCardEl.appendChild(cardContentEl)
 
                  // Recipe name and info
                 var recipeName = data.recipes[i].title
