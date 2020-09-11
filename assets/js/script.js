@@ -5,6 +5,7 @@ var posterEl = document.querySelector(".poster");
 var historyEl = document.querySelector(".history");
 var recipeContainerEl = document.querySelector(".recipe-cont");
 var movieName = localStorage.getItem("movies")
+var recipeMainContainer = document.querySelector("#recipe-list")
 //var genreName = JSON.parse(localStorage.getItem("genres"))
 var rRecipeApiKey = "&apiKey=0c7c604f01a143d598df0735356390c3";
 var rRecipeApiKey2 = "&apiKey=119f114f6e334171834908713fb964b8";
@@ -82,29 +83,68 @@ var getRecipes = function(meal) {
         })
         .then(function(data){
             for (let i = 0; i < data.recipes.length; i++){
-                // Recipe name
-                var recipeName = data.recipes[1].title
+                var columnEl = document.createElement('div')
+                columnEl.setAttribute('class', 'col s12')
+                // columnHeaderEl = document.createElement('h4')
+                // columnHeaderEl.textContent = "Recipes"
+                // columnHeaderEl.setAttribute('class', 'column-header center')
+                // columnEl.appendChild(columnHeaderEl)
+                
+                // all content will append to this then this will append to columnEl
+                contentCardEl = document.createElement('div')
+                contentCardEl.setAttribute('class', 'card horizontal box-shadow')
+                columnEl.appendChild(contentCardEl)
 
                 // Food image
-                var recipeImage = data.recipes[1].image
+                var recipeImage = data.recipes[i].image
+                imageContainerEl = document.createElement('div')
+                imageContainerEl.setAttribute('class', 'card-image')
+                imageEl = document.createElement('img')
+                imageEl.setAttribute('src', `${recipeImage}`)
+                imageContainerEl.appendChild(imageEl)
+                contentCardEl.appendChild(imageContainerEl)
+                
+                // Card stacked div holds all content left to append to contentCardEl
+                cardStackedEl = document.createElement('div')
+                cardStackedEl.setAttribute('class', 'card-content')
+                contentCardEl.appendChild(cardStackedEl)
+
+                 // Recipe name and info
+                var recipeName = data.recipes[i].title
+                recipeNameEl = document.createElement('h4')
+                recipeNameEl.textContent = recipeName
+                recipeNameEl.setAttribute('id', 'recipe-one-name')
+                recipeInfoEl = document.createElement('p')
+                recipeInfoEl.textContent = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab, ipsam. Iusto ut minus recusandae nobis cumque quasi, inventore possimus consequuntur voluptates mollitia, odit corporis odio fugit, exercitationem totam temporibus ducimus"
+                cardStackedEl.appendChild(recipeNameEl)
+                cardStackedEl.appendChild(recipeInfoEl)
 
                 // recipe link
-                var recipeLink = data.recipes[1].sourceUrl
-
+                // var recipeLink = data.recipes[1].sourceUrl
+                // recipeLinkContainerEl = document.createElement('div').href = recipeLink
+                // recipeLinkContainerEl.setAttribute('class', 'card-action')
+                // recipeLinkEl = document.createElement('a')
+                // recipeLinkEl.setAttribute('class', 'waves-effect waves-light btn')
+                // recipeLinkEl.setAttribute('target', '_blank')
+                // recipeLinkContainerEl.appendChild(recipeLinkEl)
+                // cardStackedEl.appendChild(recipeLinkContainerEl)
                 // ingredient loop
-                for (let ing = 0; ing < data.recipes[0].extendedIngredients.length; ing++) {
-                    var ingList = data.recipes[0].extendedIngredients[ing].name
-                    var ingamount = data.recipes[0].extendedIngredients[ing].amount
-                    var ingUnits = data.recipes[0].extendedIngredients[ing].measures.us.unitLong
-                    var ingShop = ingamount + ' ' + ingUnits
-                }
+                // for (let ing = 0; ing < data.recipes[0].extendedIngredients.length; ing++) {
+                //     var ingList = data.recipes[0].extendedIngredients[ing].name
+                //     var ingamount = data.recipes[0].extendedIngredients[ing].amount
+                //     var ingUnits = data.recipes[0].extendedIngredients[ing].measures.us.unitLong
+                //     var ingShop = ingamount + ' ' + ingUnits
+                // }
 
-                // instruction loop
-                for (let inst = 0; inst < data.recipes[0].analyzedInstructions[0].steps.length; inst++){
-                    var cookSteps = data.recipes[0].analyzedInstructions[0].steps[inst].step
-                }
+                // // instruction loop
+                // for (let inst = 0; inst < data.recipes[0].analyzedInstructions[0].steps.length; inst++){
+                //     var cookSteps = data.recipes[0].analyzedInstructions[0].steps[inst].step
+                // }
+
+                // recipeMainContainer.appendChild(columnHeaderEl)
+                recipeMainContainer.appendChild(columnEl)
             }
-            displayRecipes(recipeName, recipeImage, recipeLink);
+            // displayRecipes(recipeName, recipeImage, recipeLink);
         })
         
 };
@@ -120,13 +160,13 @@ var displayPoster = function(movieTitle, moviePoster) {
 };
 
 // Display Recipes
-var displayRecipes = function(recipeName, recipeImage, recipeLink) {
-    console.log(recipeName[0]);
-    document.getElementById("recipe-one-name").textContent = recipeName;
-    document.getElementById("recipe-one").src = recipeImage;
-    document.getElementById('recipe-one-link').href = recipeLink;
+// var displayRecipes = function(recipeName, recipeImage, recipeLink) {
+//     console.log(recipeName[0]);
+//     document.getElementById("recipe-one-name").textContent = recipeName;
+//     document.getElementById("recipe-one").src = recipeImage;
+//     document.getElementById('recipe-one-link').href = recipeLink;
     
-};
+// };
 
     // Expand Recipe Size Hover
 
