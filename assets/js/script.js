@@ -1,4 +1,3 @@
-
 // HTML Element Variables
 var inputEl = document.querySelector(".validate");
 var submitBtnEl = document.querySelector(".btn");
@@ -6,15 +5,16 @@ var posterEl = document.querySelector(".poster");
 var historyEl = document.querySelector(".history");
 var recipeContainerEl = document.querySelector(".recipe-cont");
 var movieName = localStorage.getItem("movies")
-var genreName = localStorage.getItem("genre")
+//var genreName = JSON.parse(localStorage.getItem("genres"))
 var rRecipeApiKey = "&apiKey=0c7c604f01a143d598df0735356390c3";
-var rRecipeApiKey2 = "&apiKey=119f114f6e334171834908713fb964b8"
+var rRecipeApiKey2 = "&apiKey=119f114f6e334171834908713fb964b8";
+var rRecipeApiKey3 = "&apiKey=8496184c37164d1a9b0b16b42f58bc2b";
 var rMovieApiKey = "apikey=84c248ca";
 
 // Local Storage Function for Movie Search History
 var historyStorage = function(name) {
     var movieStore = localStorage.setItem("movies", name)
-    console.log(name)
+   
 
     // Search History Loop
 
@@ -28,7 +28,7 @@ var historyStorage = function(name) {
 
 // Local Storage Function for Genre
 var genreStorage = function(genre) {
-    localStorage.setItem("genre", genre)
+    localStorage.setItem("genres", genre)
 };
 
 // API Fetches
@@ -46,15 +46,22 @@ var getMoviePoster = function(movie) {
     .then(function (data) {
         
         var movieTitle = data.Title
-        var movieGenre = data.Genre.split(',').pop()
+        var movieGenre = data.Genre.split(' ').pop()
         var moviePoster = data.Poster
         var moviePlot = data.Plot
-
-        //set movie genre to searchhandler
-        searchHandler(movieGenre)
         
-        // movieName = movieTitle
+        genreStorage(movieGenre);
+
+        // Pass Movie Title and Poster to displayPoster Function
+        displayPoster(movieTitle, moviePoster);
+    
+        
+        //set movie genre to searchhandler
+        // searchHandler(movieGenre)
+        
+
     })
+    getRecipes();
     // Alert modal user that fetch was not successful
     // pass response to movie poster display function
 };
@@ -63,71 +70,89 @@ var getMoviePoster = function(movie) {
 // If Statement for Pairing Movie Genre with Ingredients
 
 //Fetch
-// var getRecipes = function(meal) {
-//     var api = `https://api.spoonacular.com/recipes/random?number=3&tags=chinese` + rRecipeApiKey2;
+var getRecipes = function(meal) {
+    var api = `https://api.spoonacular.com/recipes/random?number=3&tags=chinese` + rRecipeApiKey3;
+        console.log(api);
 
-
-//         fetch(api)
-//         .then(function(response) {
+        fetch(api)
+        .then(function(response) {
             
-//         //request as successful
-//             return response.json();
-//         })
-//         .then(function(data){
-//             for (let i = 0; i < data.recipes.length; i++){
-//                 // Recipe name
-//                 var recipeName = data.recipes[1].title
+        //request as successful
+            return response.json();
+        })
+        .then(function(data){
+            for (let i = 0; i < data.recipes.length; i++){
+                // Recipe name
+                var recipeName = data.recipes[1].title
 
-//                 // Food image
-//                 var recipeImage = data.recipes[1].image
+                // Food image
+                var recipeImage = data.recipes[1].image
 
-//                 // recipe link
-//                 var recipeLink = data.recipes[0].sourceUrl
+                // recipe link
+                var recipeLink = data.recipes[1].sourceUrl
 
-//                 // ingredient loop
-//                 for (let ing = 0; ing < data.recipes[0].extendedIngredients.length; ing++) {
-//                     var ingList = data.recipes[0].extendedIngredients[ing].name
-//                     var ingamount = data.recipes[0].extendedIngredients[ing].amount
-//                     var ingUnits = data.recipes[0].extendedIngredients[ing].measures.us.unitLong
-//                     var ingShop = ingamount + ' ' + ingUnits
-//                 }
+                // ingredient loop
+                for (let ing = 0; ing < data.recipes[0].extendedIngredients.length; ing++) {
+                    var ingList = data.recipes[0].extendedIngredients[ing].name
+                    var ingamount = data.recipes[0].extendedIngredients[ing].amount
+                    var ingUnits = data.recipes[0].extendedIngredients[ing].measures.us.unitLong
+                    var ingShop = ingamount + ' ' + ingUnits
+                }
 
-//                 // instruction loop
-//                 for (let inst = 0; inst < data.recipes[0].analyzedInstructions[0].steps.length; inst++){
-//                     var cookSteps = data.recipes[0].analyzedInstructions[0].steps[inst].step
-//                 }
-//             }
-//         })
+                // instruction loop
+                for (let inst = 0; inst < data.recipes[0].analyzedInstructions[0].steps.length; inst++){
+                    var cookSteps = data.recipes[0].analyzedInstructions[0].steps[inst].step
+                }
+            }
+            displayRecipes(recipeName, recipeImage, recipeLink);
+        })
         
-// };
-// getRecipes()
+};
+
+
 // Display Movie Poster
-var displayPoster = function(moviedata) {
+var displayPoster = function(movieTitle, moviePoster) {
+    console.log(movieTitle);
+    console.log(moviePoster);
+    document.getElementById("movie-title").textContent = movieTitle;
+    document.getElementById("poster-img").src = moviePoster;
 
 };
 
 // Display Recipes
-var displayRecipes = function(recipedata) {
+var displayRecipes = function(recipeName, recipeImage, recipeLink) {
+    console.log(recipeName[0]);
+    document.getElementById("recipe-one-name").textContent = recipeName;
+    document.getElementById("recipe-one").src = recipeImage;
+    document.getElementById('recipe-one-link').href = recipeLink;
     
 };
 
     // Expand Recipe Size Hover
-    getMoviePoster('star wars');
+
 // // Global Function | Get Local Storage Names and Pass Into Functions
-var searchHandler = function(genreValue) {
-    
-    console.log(inputEl)
-    // var movieTitle = 'superbad'
-    // if (movieTitle) {
-    //     // getMoviePoster(movieTitle);
-    //     historyStorage(movieTitle);
-    // //     document.querySelector('.movie-input').value = ""
-    // }
-    
-    // if (genreValue) {
+var searchHandler = function() {
+    event.preventDefault();
+    //console.log(genreName);
+    console.log(inputEl.value);
+
+    // if (genreName) {
     //     // getRecipes(genreValue);
-    //     genreStorage(genreValue)
+    //     // genreStorage(genreName)
+        
+    // }  else {
+    //     localStorage.setItem('genres', "")
+        
     // }
+   
+
+    if (inputEl.value) {
+        getMoviePoster(inputEl.value);
+        historyStorage(inputEl.value);
+        //  document.querySelector('.movie-input').value = ""
+    }
+    
+    
 };
 
 // //Event Listener for Submit Button
@@ -150,4 +175,3 @@ submitBtnEl.addEventListener("click", searchHandler)
 //     }
 
 // }, false);
-
