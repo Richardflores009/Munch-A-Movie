@@ -120,6 +120,7 @@ var displayRecipes = function(recipedata) {
 var searchHandler = function() {
     event.preventDefault()
     console.log(genreName)
+    console.log(localStorage.key(1))
 
     if (genreName) {
         // getRecipes(genreValue);
