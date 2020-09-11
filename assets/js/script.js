@@ -7,15 +7,14 @@ var recipeContainerEl = document.querySelector(".recipe-cont");
 var movieName = localStorage.getItem("movies")
 var recipeMainContainer = document.querySelector("#recipe-list")
 var postercontainerEl = document.querySelector("#poster-container")
-//var genreName = JSON.parse(localStorage.getItem("genres"))
 var rRecipeApiKey = "&apiKey=0c7c604f01a143d598df0735356390c3";
 var rRecipeApiKey2 = "&apiKey=119f114f6e334171834908713fb964b8";
 var rRecipeApiKey3 = "&apiKey=8496184c37164d1a9b0b16b42f58bc2b";
 var rMovieApiKey = "apikey=84c248ca";
 
 // Local Storage Function for Movie Search History
-var historyStorage = function(name) {
-    var movieStore = localStorage.setItem("movies", name)
+//var historyStorage = function(name) {
+  //  localStorage.setItem("movies", name)
    
 
     // Search History Loop
@@ -26,17 +25,27 @@ var historyStorage = function(name) {
 
     // Set TextContent for Button
 
-};
+//};
 
 // Local Storage Function for Genre
-var genreStorage = function(genre) {
-    localStorage.setItem("genres", genre)
+var movieStorage = function(title, genre) {
+    var movie = {title:title, genre:genre}
+    console.log(title,genre)
+    var movies = JSON.parse(window.localStorage.getItem("movies"))
+    if(!movies){
+        movies = [movie]
+    } else {
+        movies = movies.concat([movie])
+    }
+    console.log(movies)
+    window.localStorage.setItem("movies", JSON.stringify(movies))
 };
 
 // API Fetches
 // Movie Poster Fetch
 var getMoviePoster = function(movie) {
     var tempCity = movie.replace(' ', '%20')
+
     var apiUrl = `http://www.omdbapi.com/?${rMovieApiKey}&t=${tempCity}`;
     console.log(apiUrl)
 
@@ -52,7 +61,7 @@ var getMoviePoster = function(movie) {
         var moviePoster = data.Poster
         var moviePlot = data.Plot
         
-        genreStorage(movieGenre);
+        movieStorage(movieTitle, movieGenre);
 
         // Pass Movie Title and Poster to displayPoster Function
         displayPoster(movieTitle, moviePoster);
@@ -60,10 +69,10 @@ var getMoviePoster = function(movie) {
         
         //set movie genre to searchhandler
         // searchHandler(movieGenre)
+        getRecipes(movieGenre);
         
-
     })
-    getRecipes();
+    
     // Alert modal user that fetch was not successful
     // pass response to movie poster display function
 };
@@ -222,7 +231,7 @@ var searchHandler = function() {
 
     if (inputEl.value) {
         getMoviePoster(inputEl.value);
-        historyStorage(inputEl.value);
+        // historyStorage(inputEl.value);
         //  document.querySelector('.movie-input').value = ""
     }
     
