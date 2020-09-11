@@ -74,7 +74,9 @@ var getMoviePoster = function(movie) {
 var getRecipes = function(meal) {
     var api = `https://api.spoonacular.com/recipes/random?number=3&tags=chinese` + rRecipeApiKey3;
         console.log(api);
-
+        
+        
+        
         fetch(api)
         .then(function(response) {
             
@@ -119,11 +121,18 @@ var getRecipes = function(meal) {
                 cardStackedEl.appendChild(recipeNameEl)
                 cardStackedEl.appendChild(recipeInfoEl)
 
+
+
                 // recipe link
-                // var recipeLink = data.recipes[1].sourceUrl
-                // recipeLinkContainerEl = document.createElement('div').href = recipeLink
-                // recipeLinkContainerEl.setAttribute('class', 'card-action')
-                // recipeLinkEl = document.createElement('a')
+                var recipeLink = data.recipes[1].sourceUrl
+                recipeLinkContainerEl = document.createElement('div')
+                recipeLinkContainerEl.setAttribute('class', 'card-action')
+                recipeLinkEl = document.createElement('a')
+                recipeLinkEl.setAttribute('class', 'waves-effect waves-light btn')
+                recipeLinkEl.setAttribute('href', `${recipeLink}`)
+                recipeLinkEl.textContent = "See Recipe"
+                cardStackedEl.appendChild(recipeLinkEl)
+                
                 // recipeLinkEl.setAttribute('class', 'waves-effect waves-light btn')
                 // recipeLinkEl.setAttribute('target', '_blank')
                 // recipeLinkContainerEl.appendChild(recipeLinkEl)
@@ -143,6 +152,9 @@ var getRecipes = function(meal) {
 
                 // recipeMainContainer.appendChild(columnHeaderEl)
                 recipeMainContainer.appendChild(columnEl)
+                // recipeMainContainer.appendChild(columnHeaderEl)
+                
+                
             }
             // displayRecipes(recipeName, recipeImage, recipeLink);
         })
