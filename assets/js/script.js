@@ -6,6 +6,7 @@ var historyEl = document.querySelector(".history");
 var recipeContainerEl = document.querySelector(".recipe-cont");
 var movieName = localStorage.getItem("movies")
 var recipeMainContainer = document.querySelector("#recipe-list")
+var postercontainerEl = document.querySelector("#poster-container")
 //var genreName = JSON.parse(localStorage.getItem("genres"))
 var rRecipeApiKey = "&apiKey=0c7c604f01a143d598df0735356390c3";
 var rRecipeApiKey2 = "&apiKey=119f114f6e334171834908713fb964b8";
@@ -75,7 +76,7 @@ var getRecipes = function(meal) {
     var api = `https://api.spoonacular.com/recipes/random?number=3&tags=chinese` + rRecipeApiKey3;
         console.log(api);
         
-        
+        // recipeMainContainer.innerHTML = ' '
         
         fetch(api)
         .then(function(response) {
@@ -87,10 +88,12 @@ var getRecipes = function(meal) {
             for (let i = 0; i < data.recipes.length; i++){
                 var columnEl = document.createElement('div')
                 columnEl.setAttribute('class', 'col s12')
+                // headerDivEl = document.createElement('div')
                 // columnHeaderEl = document.createElement('h4')
                 // columnHeaderEl.textContent = "Recipes"
                 // columnHeaderEl.setAttribute('class', 'column-header center')
-                // columnEl.appendChild(columnHeaderEl)
+                // headerDivEl.appendChild(columnHeaderEl)
+                
                 
                 // all content will append to this then this will append to columnEl
                 contentCardEl = document.createElement('div')
@@ -154,6 +157,7 @@ var getRecipes = function(meal) {
                 // }
 
                 // recipeMainContainer.appendChild(columnHeaderEl)
+               
                 recipeMainContainer.appendChild(columnEl)
                 // recipeMainContainer.appendChild(columnHeaderEl)
                 
@@ -169,8 +173,23 @@ var getRecipes = function(meal) {
 var displayPoster = function(movieTitle, moviePoster) {
     console.log(movieTitle);
     console.log(moviePoster);
-    document.getElementById("movie-title").textContent = movieTitle;
-    document.getElementById("poster-img").src = moviePoster;
+    var movieTitleEl = document.createElement('h4')
+    movieTitleEl.textContent = movieTitle
+    movieTitleEl.setAttribute('class', 'column-header center')
+    movieTitleEl.setAttribute('id', 'movie-title')
+    
+    var moviePosterContainer = document.createElement('div')
+    moviePosterContainer.setAttribute('id', 'movie-poster')
+    var moviePosterEl = document.createElement('img')
+    moviePosterEl.setAttribute('id', 'poster-img')
+    moviePosterEl.setAttribute('src', `${moviePoster}`)
+    moviePosterEl.setAttribute('class', 'poster-img box-shadow')
+    moviePosterContainer.appendChild(moviePosterEl)
+
+    postercontainerEl.appendChild(movieTitleEl)
+    postercontainerEl.appendChild(moviePosterContainer)
+    // document.getElementById("movie-title").textContent = movieTitle;
+    // document.getElementById("poster-img").src = moviePoster;
 
 };
 
