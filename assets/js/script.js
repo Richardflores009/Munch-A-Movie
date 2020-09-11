@@ -1,6 +1,6 @@
 
 // HTML Element Variables
-var inputEl = document.querySelector(".movie-input");
+var inputEl = document.querySelector(".validate");
 var submitBtnEl = document.querySelector(".btn");
 var posterEl = document.querySelector(".poster");
 var historyEl = document.querySelector(".history");
@@ -115,22 +115,23 @@ var displayRecipes = function(recipedata) {
     getMoviePoster('star wars');
 // // Global Function | Get Local Storage Names and Pass Into Functions
 var searchHandler = function(genreValue) {
-    // inputEl.value
-    var movieTitle = 'superbad'
-    if (movieTitle) {
-        // getMoviePoster(movieTitle);
-        historyStorage(movieTitle);
-    //     document.querySelector('.movie-input').value = ""
-    }
     
-    if (genreValue) {
-        // getRecipes(genreValue);
-        genreStorage(genreValue)
-    }
+    console.log(inputEl)
+    // var movieTitle = 'superbad'
+    // if (movieTitle) {
+    //     // getMoviePoster(movieTitle);
+    //     historyStorage(movieTitle);
+    // //     document.querySelector('.movie-input').value = ""
+    // }
+    
+    // if (genreValue) {
+    //     // getRecipes(genreValue);
+    //     genreStorage(genreValue)
+    // }
 };
 
 // //Event Listener for Submit Button
-// submitBtnEl.addEventListener("click", searchHandler)
+submitBtnEl.addEventListener("click", searchHandler)
 // //repopulate page after refresh
 // window.addEventListener('load',
 // function(){
