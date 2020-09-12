@@ -3,11 +3,12 @@ var inputEl = document.querySelector(".validate");
 var submitBtnEl = document.querySelector(".btn");
 var posterEl = document.querySelector(".poster");
 var historyEl = document.querySelector(".history");
+var whateva = document.querySelector('#whatever-u-want')
 var recipeContainerEl = document.querySelector(".recipe-cont");
 var movieName = localStorage.getItem("movies")
 var recipeMainContainer = document.querySelector("#recipe-list")
 var recipeHeader = document.querySelector("#recipes-header");
-    recipeHeader.style.display="none";
+    // recipeHeader.style.display="none";
 var postercontainerEl = document.querySelector("#poster-container")
 var rRecipeApiKey = "&apiKey=0c7c604f01a143d598df0735356390c3";
 var rRecipeApiKey2 = "&apiKey=119f114f6e334171834908713fb964b8";
@@ -85,8 +86,8 @@ var getRecipes = function(meal) {
     var api = `https://api.spoonacular.com/recipes/random?number=3&tags=chinese` + rRecipeApiKey3;
         console.log(api);
         
-        recipeMainContainer.innerHTML= ' ';
-        
+        // recipeMainContainer.innerHTML= ' ';
+        whateva.innerHTML= ' ';
         fetch(api)
         .then(function(response) {
             
@@ -96,7 +97,7 @@ var getRecipes = function(meal) {
         .then(function(data){
 
             for (let i = 0; i < data.recipes.length; i++){
-
+                
                 recipeHeader.style.display = "block";
 
                 var columnEl = document.createElement('div')
@@ -167,10 +168,10 @@ var getRecipes = function(meal) {
                 // for (let inst = 0; inst < data.recipes[0].analyzedInstructions[0].steps.length; inst++){
                 //     var cookSteps = data.recipes[0].analyzedInstructions[0].steps[inst].step
                 // }
-
+                whateva.appendChild(columnEl)
                 // recipeMainContainer.appendChild(columnHeaderEl)
                
-                recipeMainContainer.appendChild(columnEl)
+                // recipeMainContainer.appendChild(columnEl)
                 // recipeMainContainer.appendChild(columnHeaderEl)
                 
                 
