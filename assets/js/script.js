@@ -8,7 +8,7 @@ var recipeContainerEl = document.querySelector(".recipe-cont");
 var movieName = localStorage.getItem("movies")
 var recipeMainContainer = document.querySelector("#recipe-list")
 var recipeHeader = document.querySelector("#recipes-header");
-    // recipeHeader.style.display="none";
+    recipeHeader.style.display="none";
 var postercontainerEl = document.querySelector("#poster-container")
 var rRecipeApiKey = "&apiKey=0c7c604f01a143d598df0735356390c3";
 var rRecipeApiKey2 = "&apiKey=119f114f6e334171834908713fb964b8";
@@ -60,33 +60,31 @@ var getMoviePoster = function(movie) {
     var apiUrl = `http://www.omdbapi.com/?${rMovieApiKey}&t=${tempCity}`;
     console.log(apiUrl)
 
-    fetch(apiUrl)
-    .then(function(response) {
-        //request was successful
-        return response.json();
-    })
-    .then(function (data) {
+    fetch(apiUrl).then(function(Response) {
+       
+        return Response.json().then(function (data) {
         
-        var movieTitle = data.Title
-        var movieGenre = data.Genre.split(' ').pop()
-        var moviePoster = data.Poster
-        var moviePlot = data.Plot
+            var movieTitle = data.Title
+            var movieGenre = data.Genre.split(' ').pop()
+            var moviePoster = data.Poster
+            var moviePlot = data.Plot
         
-        movieStorage(movieTitle, movieGenre);
+             movieStorage(movieTitle, movieGenre);
 
-        // Pass Movie Title and Poster to displayPoster Function
-        displayPoster(movieTitle, moviePoster);
+            // Pass Movie Title and Poster to displayPoster Function
+            displayPoster(movieTitle, moviePoster);
 
-        //set movie genre to searchhandler
-        // searchHandler(movieGenre)
-        console.log(localStorage.getItem("movies"));
-        var lastMovie = JSON.parse(localStorage.getItem("movies")).pop();
-        getRecipes(lastMovie);
-        
-    })
-    
-    // Alert modal user that fetch was not successful
-    // pass response to movie poster display function
+            //set movie genre to searchhandler
+            // searchHandler(movieGenre)
+            console.log(localStorage.getItem("movies"));
+            var lastMovie = JSON.parse(localStorage.getItem("movies")).pop();
+            getRecipes(lastMovie);
+        })
+        .catch(function(error) {
+            // Add modal here
+            console.log("Not a valid movie name");
+        });
+    });
 };
 
 
@@ -105,6 +103,7 @@ console.log(meal)
         
         // recipeMainContainer.innerHTML= ' ';
         whateva.innerHTML= ' ';
+        
         fetch(api)
         .then(function(response) {
             
@@ -156,6 +155,7 @@ console.log(meal)
                 var recipeSummary = data.recipes[i].summary
                 recipeInfoEl = document.createElement('p')
                 recipeInfoEl.innerHTML = recipeSummary
+                recipeInfoEl.setAttribute('class', 'disable-link')
                 cardStackedEl.appendChild(recipeNameEl)
                 cardStackedEl.appendChild(recipeInfoEl)
 
@@ -279,13 +279,54 @@ submitBtnEl.addEventListener("click", searchHandler)
 
 // }, false);
 
+// Function to Assign Cuisine Types to Movie Genres
+
 function genreToCuisine(genre) {
     var cuisine
-    if (genre==="Adventure") {
+    if (genre==="Action") {
         cuisine = "japanese"
     }
-    else {
+    else if (genre==="Adventure") {
+        cuisine = "german"
+    }
+    else if (genre==="Bollywood") {
+        cuisine = "indian"
+    }
+    else if (genre==="Comedy") {
+        cuisine = "mexican"
+    }
+    else if (genre==="Documentary") {
+        cuisine = "spanish"
+    }
+    else if (genre==="Drama") {
+        cuisine = "french"
+    }
+    else if (genre==="Family" || genre==="Animation") {
+        cuisine = "american"
+    }
+    else if (genre==="Fantasy") {
+        cuisine = "vietnamese"
+    }
+    else if (genre==="Horror") {
+        cuisine = "indian"
+    }
+    else if (genre==="Romantic") {
+        cuisine = "Thai"
+    }
+    else if (genre==="Sci-Fi") {
         cuisine = "chinese"
+    }
+    else if (genre==="Superhero") {
+        cuisine = "mediterranean"
+    }
+    else if (genre==="Thriller" || genre==="Mystery") {
+        cuisine = "cajun"
+    }
+    else if (genre==="Western") {
+        cuisine = "southern"
+    }
+    else {
+        cuisine = "british"
     }
     return cuisine;
 }
