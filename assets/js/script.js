@@ -141,7 +141,7 @@ var getRecipes = function(meal) {
                 cardStackedEl.appendChild(recipeInfoEl)
 
                 // recipe link
-                var recipeLink = data.recipes[1].sourceUrl
+                var recipeLink = data.recipes[i].sourceUrl
                 recipeLinkContainerEl = document.createElement('div')
                 recipeLinkContainerEl.setAttribute('class', 'card-action')
                 recipeLinkEl = document.createElement('a')
