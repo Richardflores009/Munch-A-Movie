@@ -14,6 +14,8 @@ var rRecipeApiKey = "&apiKey=0c7c604f01a143d598df0735356390c3";
 var rRecipeApiKey2 = "&apiKey=119f114f6e334171834908713fb964b8";
 var rRecipeApiKey3 = "&apiKey=8496184c37164d1a9b0b16b42f58bc2b";
 var rMovieApiKey = "apikey=84c248ca";
+var modal = document.getElementById("myModal");
+var span = document.getElementsByClassName("close")[0];
 
 // Local Storage Function for Movie Search History
 //var historyStorage = function(name) {
@@ -81,8 +83,8 @@ var getMoviePoster = function(movie) {
             getRecipes(lastMovie);
         })
         .catch(function(error) {
-            // Add modal here
             console.log("Not a valid movie name");
+            modal.style.display = "block";
         });
     });
 };
@@ -329,4 +331,15 @@ function genreToCuisine(genre) {
         cuisine = "british"
     }
     return cuisine;
+};
+
+//Modal Functions
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "block";
+    }
 }
