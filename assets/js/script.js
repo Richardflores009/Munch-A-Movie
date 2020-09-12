@@ -33,14 +33,23 @@ var rMovieApiKey = "apikey=84c248ca";
 var movieStorage = function(title, genre) {
     var movie = {title:title, genre:genre}
     console.log(title,genre)
-    var movies = JSON.parse(window.localStorage.getItem("movies"))
+    var movies = JSON.parse(localStorage.getItem("movies"))
+
+    console.log("The movie:", movies)
+
+
     if(!movies){
         movies = [movie]
     } else {
         movies = movies.concat([movie])
     }
-    console.log(movies)
-    window.localStorage.setItem("movies", JSON.stringify(movies))
+
+    //window.localStorage.setItem("movies", JSON.stringify(movies))
+    localStorage.setItem("movies", JSON.stringify(movies))
+    console.log(localStorage.getItem("movies"));
+    console.log(movies[0].title)
+    console.log(movies[0].genre)
+
 };
 
 // Movie Poster Fetch
@@ -66,11 +75,12 @@ var getMoviePoster = function(movie) {
 
         // Pass Movie Title and Poster to displayPoster Function
         displayPoster(movieTitle, moviePoster);
-    
-        
+
         //set movie genre to searchhandler
         // searchHandler(movieGenre)
-        getRecipes(movieGenre);
+        console.log(localStorage.getItem("movies"));
+        var lastMovie = JSON.parse(localStorage.getItem("movies")).pop();
+        getRecipes(lastMovie);
         
     })
     
@@ -78,11 +88,18 @@ var getMoviePoster = function(movie) {
     // pass response to movie poster display function
 };
 
-// If Statement for Pairing Movie Genre with Ingredients
+
 
 //Fetch Recipes
 var getRecipes = function(meal) {
-    var api = `https://api.spoonacular.com/recipes/random?number=3&tags=chinese` + rRecipeApiKey3;
+
+console.log(meal)
+
+    // If Statement for Pairing Movie Genre with Ingredients
+    var cuisine = genreToCuisine(meal.genre);
+
+
+    var api = `https://api.spoonacular.com/recipes/random?number=3&tags=${cuisine}` + rRecipeApiKey3;
         console.log(api);
         
         recipeMainContainer.innerHTML= ' ';
@@ -254,3 +271,14 @@ submitBtnEl.addEventListener("click", searchHandler)
 //     }
 
 // }, false);
+
+function genreToCuisine(genre) {
+    var cuisine
+    if (genre==="Adventure") {
+        cuisine = "japanese"
+    }
+    else {
+        cuisine = "chinese"
+    }
+    return cuisine;
+}
