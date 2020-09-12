@@ -12,6 +12,7 @@ var rRecipeApiKey = "&apiKey=0c7c604f01a143d598df0735356390c3";
 var rRecipeApiKey2 = "&apiKey=119f114f6e334171834908713fb964b8";
 var rRecipeApiKey3 = "&apiKey=8496184c37164d1a9b0b16b42f58bc2b";
 var rMovieApiKey = "apikey=84c248ca";
+var sMovieApiKey = "apikey=67c1ed90"
 
 // Local Storage Function for Movie Search History
 var historyStorage = function(name) {
@@ -37,8 +38,8 @@ var genreStorage = function(genre) {
 // Movie Poster Fetch
 var getMoviePoster = function(movie) {
     var tempCity = movie.replace(' ', '%20')
-    var apiUrl = `http://www.omdbapi.com/?${rMovieApiKey}&t=${tempCity}`;
-    console.log(apiUrl)
+    var apiUrl = `http://www.omdbapi.com/?${sMovieApiKey}&t=${tempCity}`;
+    
 
     fetch(apiUrl)
     .then(function(response) {
@@ -52,6 +53,7 @@ var getMoviePoster = function(movie) {
         var moviePoster = data.Poster
         var moviePlot = data.Plot
         
+        console.log(movieTitle)
         genreStorage(movieGenre);
 
         // Pass Movie Title and Poster to displayPoster Function
@@ -73,8 +75,8 @@ var getMoviePoster = function(movie) {
 
 //Fetch
 var getRecipes = function(meal) {
-    var api = `https://api.spoonacular.com/recipes/random?number=3&tags=chinese` + rRecipeApiKey3;
-        console.log(api);
+    var api = `https://api.spoonacular.com/recipes/random?number=3&tags=chinese` + rRecipeApiKey;
+     
         
         // recipeMainContainer.innerHTML = ' '
         
@@ -171,25 +173,25 @@ var getRecipes = function(meal) {
 
 // Display Movie Poster
 var displayPoster = function(movieTitle, moviePoster) {
-    console.log(movieTitle);
-    console.log(moviePoster);
-    var movieTitleEl = document.createElement('h4')
-    movieTitleEl.textContent = movieTitle
-    movieTitleEl.setAttribute('class', 'column-header center')
-    movieTitleEl.setAttribute('id', 'movie-title')
+    // console.log(movieTitle);
+    // console.log(moviePoster);
+    // var movieTitleEl = document.createElement('h4')
+    // movieTitleEl.textContent = movieTitle
+    // movieTitleEl.setAttribute('class', 'column-header center')
+    // movieTitleEl.setAttribute('id', 'movie-title')
     
-    var moviePosterContainer = document.createElement('div')
-    moviePosterContainer.setAttribute('id', 'movie-poster')
-    var moviePosterEl = document.createElement('img')
-    moviePosterEl.setAttribute('id', 'poster-img')
-    moviePosterEl.setAttribute('src', `${moviePoster}`)
-    moviePosterEl.setAttribute('class', 'poster-img box-shadow')
-    moviePosterContainer.appendChild(moviePosterEl)
+    // var moviePosterContainer = document.createElement('div')
+    // moviePosterContainer.setAttribute('id', 'movie-poster')
+    // var moviePosterEl = document.createElement('img')
+    // moviePosterEl.setAttribute('id', 'poster-img')
+    // moviePosterEl.setAttribute('src', `${moviePoster}`)
+    // moviePosterEl.setAttribute('class', 'poster-img box-shadow')
+    // moviePosterContainer.appendChild(moviePosterEl)
 
-    postercontainerEl.appendChild(movieTitleEl)
-    postercontainerEl.appendChild(moviePosterContainer)
-    // document.getElementById("movie-title").textContent = movieTitle;
-    // document.getElementById("poster-img").src = moviePoster;
+    // postercontainerEl.appendChild(movieTitleEl)
+    // postercontainerEl.appendChild(moviePosterContainer)
+    document.getElementById("movie-title").textContent = movieTitle;
+    document.getElementById("poster-img").src = moviePoster;
 
 };
 
@@ -208,7 +210,7 @@ var displayPoster = function(movieTitle, moviePoster) {
 var searchHandler = function() {
     event.preventDefault();
     //console.log(genreName);
-    console.log(inputEl.value);
+    
 
     // if (genreName) {
     //     // getRecipes(genreValue);
