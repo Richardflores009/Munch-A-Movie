@@ -153,8 +153,9 @@ console.log(meal)
                 recipeNameEl = document.createElement('h4')
                 recipeNameEl.textContent = recipeName
                 recipeNameEl.setAttribute('id', 'recipe-one-name')
+                var recipeSummary = data.recipes[i].summary
                 recipeInfoEl = document.createElement('p')
-                recipeInfoEl.textContent = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab, ipsam. Iusto ut minus recusandae nobis cumque quasi, inventore possimus consequuntur voluptates mollitia, odit corporis odio fugit, exercitationem totam temporibus ducimus"
+                recipeInfoEl.innerHTML = recipeSummary
                 cardStackedEl.appendChild(recipeNameEl)
                 cardStackedEl.appendChild(recipeInfoEl)
 
@@ -168,6 +169,8 @@ console.log(meal)
                 recipeLinkEl.setAttribute('target', '_blank')
                 recipeLinkEl.textContent = "See Recipe"
                 cardStackedEl.appendChild(recipeLinkEl)
+                
+                
                 
                 // recipeLinkEl.setAttribute('class', 'waves-effect waves-light btn')
                 // recipeLinkEl.setAttribute('target', '_blank')
