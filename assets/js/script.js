@@ -6,6 +6,8 @@ var historyEl = document.querySelector(".history");
 var recipeContainerEl = document.querySelector(".recipe-cont");
 var movieName = localStorage.getItem("movies")
 var recipeMainContainer = document.querySelector("#recipe-list")
+var recipeHeader = document.querySelector("#recipes-header");
+    recipeHeader.style.display="none";
 var postercontainerEl = document.querySelector("#poster-container")
 var rRecipeApiKey = "&apiKey=0c7c604f01a143d598df0735356390c3";
 var rRecipeApiKey2 = "&apiKey=119f114f6e334171834908713fb964b8";
@@ -27,7 +29,7 @@ var rMovieApiKey = "apikey=84c248ca";
 
 //};
 
-// Local Storage Function for Genre
+// Local Storage Function
 var movieStorage = function(title, genre) {
     var movie = {title:title, genre:genre}
     console.log(title,genre)
@@ -41,7 +43,6 @@ var movieStorage = function(title, genre) {
     window.localStorage.setItem("movies", JSON.stringify(movies))
 };
 
-// API Fetches
 // Movie Poster Fetch
 var getMoviePoster = function(movie) {
     var tempCity = movie.replace(' ', '%20')
@@ -77,24 +78,27 @@ var getMoviePoster = function(movie) {
     // pass response to movie poster display function
 };
 
-//Recipe Fetch
 // If Statement for Pairing Movie Genre with Ingredients
 
-//Fetch
+//Fetch Recipes
 var getRecipes = function(meal) {
     var api = `https://api.spoonacular.com/recipes/random?number=3&tags=chinese` + rRecipeApiKey3;
         console.log(api);
         
-        // recipeMainContainer.innerHTML = ' '
+        recipeMainContainer.innerHTML= ' ';
         
         fetch(api)
         .then(function(response) {
             
-        //request as successful
+        //request was successful
             return response.json();
         })
         .then(function(data){
+
             for (let i = 0; i < data.recipes.length; i++){
+
+                recipeHeader.style.display = "block";
+
                 var columnEl = document.createElement('div')
                 columnEl.setAttribute('class', 'col s12')
                 // headerDivEl = document.createElement('div')
@@ -136,8 +140,6 @@ var getRecipes = function(meal) {
                 cardStackedEl.appendChild(recipeNameEl)
                 cardStackedEl.appendChild(recipeInfoEl)
 
-
-
                 // recipe link
                 var recipeLink = data.recipes[1].sourceUrl
                 recipeLinkContainerEl = document.createElement('div')
@@ -145,6 +147,7 @@ var getRecipes = function(meal) {
                 recipeLinkEl = document.createElement('a')
                 recipeLinkEl.setAttribute('class', 'waves-effect waves-light btn')
                 recipeLinkEl.setAttribute('href', `${recipeLink}`)
+                recipeLinkEl.setAttribute('target', '_blank')
                 recipeLinkEl.textContent = "See Recipe"
                 cardStackedEl.appendChild(recipeLinkEl)
                 
@@ -172,21 +175,23 @@ var getRecipes = function(meal) {
                 
                 
             }
-            // displayRecipes(recipeName, recipeImage, recipeLink);
         })
         
 };
 
 
-// Display Movie Poster
+// Funtion to Display Movie Poster
 var displayPoster = function(movieTitle, moviePoster) {
-    console.log(movieTitle);
-    console.log(moviePoster);
+    // Clear previous poster
+    postercontainerEl.textContent="";
+
+    // Create Header with Movie Title
     var movieTitleEl = document.createElement('h4')
     movieTitleEl.textContent = movieTitle
     movieTitleEl.setAttribute('class', 'column-header center')
     movieTitleEl.setAttribute('id', 'movie-title')
     
+    // Create Div to Hold Movie Poster
     var moviePosterContainer = document.createElement('div')
     moviePosterContainer.setAttribute('id', 'movie-poster')
     var moviePosterEl = document.createElement('img')
@@ -195,23 +200,14 @@ var displayPoster = function(movieTitle, moviePoster) {
     moviePosterEl.setAttribute('class', 'poster-img box-shadow')
     moviePosterContainer.appendChild(moviePosterEl)
 
+    // Display Elements
     postercontainerEl.appendChild(movieTitleEl)
     postercontainerEl.appendChild(moviePosterContainer)
-    // document.getElementById("movie-title").textContent = movieTitle;
-    // document.getElementById("poster-img").src = moviePoster;
 
 };
 
-// Display Recipes
-// var displayRecipes = function(recipeName, recipeImage, recipeLink) {
-//     console.log(recipeName[0]);
-//     document.getElementById("recipe-one-name").textContent = recipeName;
-//     document.getElementById("recipe-one").src = recipeImage;
-//     document.getElementById('recipe-one-link').href = recipeLink;
-    
-// };
 
-    // Expand Recipe Size Hover
+// Function for Hovering over Recipes
 
 // // Global Function | Get Local Storage Names and Pass Into Functions
 var searchHandler = function() {
