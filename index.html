@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     <link rel="stylesheet" href="assets/style/styles.css">
     <title>Muncha Movie</title>
 </head>
+
 <body>
     <header>
         <nav class="nav-extended center">
@@ -20,7 +22,6 @@
         </nav>
     </header>
     <main>
-
         <!--input div-->
         <div class="row">
             <form class="col white form-style s10 m10 l6">
@@ -33,23 +34,24 @@
                 <div>
                     <p>
                         <label class="diet-options">
-                            <input type="checkbox" name="dietoptions" id="gluten-free-option" class="filled-in checkbox"/>
+                            <input type="checkbox" name="dietoptions" id="gluten-free-option"
+                                class="filled-in checkbox" />
                             <span>Gluten Free</span>
                         </label>
                         <label class="diet-options">
-                            <input type="checkbox" name="dietoptions" id="Veg" class="filled-in"/>
+                            <input type="checkbox" name="dietoptions" id="Veg" class="filled-in" />
                             <span>Vegetarian</span>
                         </label>
                         <label class="diet-options">
-                                <input type="checkbox" name="dietoptions" id="LowCarb" class="filled-in"/>
+                            <input type="checkbox" name="dietoptions" id="LowCarb" class="filled-in" />
                             <span>Low Carb</span>
                         </label>
                         <label class="diet-options">
-                            <input type="checkbox" name="dietoptions" id="Keto" class="filled-in"/>
+                            <input type="checkbox" name="dietoptions" id="Keto" class="filled-in" />
                             <span>Keto</span>
                         </label>
                         <label class="diet-options">
-                            <input type="checkbox" name="dietoptions" id="DairyFree" class="filled-in"/>
+                            <input type="checkbox" name="dietoptions" id="DairyFree" class="filled-in" />
                             <span>Dairy Free</span>
                         </label>
                     </p>
@@ -57,12 +59,12 @@
                 <button class="btn waves-effect waves-light" type="submit">Search</button>
             </form>
         </div>
-
         <!--left column-->
-        <div class="row">    
+        <div class="row">
             <div class="col s12 m12 l2 row-color">
-                <h4 class="column-header center">Previous Movies Searched</h4>
+                <h4 class="column-header center">Searched Movies</h4>
                 <div id="search-history" class="collection center box-shadow">
+                    
                     <!-- <a href="#" class="collection-item black-text">Incredibles</a>
                     <a href="#" class="collection-item black-text">Ghost Rider</a>
                     <a href="#" class="collection-item black-text">Alvin and the Chipmunks</a> -->
@@ -76,7 +78,6 @@
                     <img id="poster-img" src="./assets/img/incredibles.jpg" alt="" class="poster-img box-shadow">
                 </div>     -->
             </div>
-
             <!--right column-->
             <div id="recipe-list" class="col s12 m7 l6 row-color">
                 <div>
@@ -84,8 +85,8 @@
                 </div>
                 <div id="whatever-u-want"></div>
                 <!-- <div class="col s12"> -->
-                    
-                    <!-- <div class="card horizontal box-shadow">
+
+                <!-- <div class="card horizontal box-shadow">
                         <div class="card-image">
                             <img id="recipe-one" src="./assets/img/burger.jpg">
                         </div>
@@ -131,22 +132,20 @@
                             </div>
                         </div>
                     </div> -->
-                </div>
             </div>
         </div>
+        </div>
     </main>
-
     <!-- Modal -->
     <div id="myModal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <p>Uh oh! The movie you have selected is not in our database! Please try again. </p>
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>Uh oh! The movie you have selected is not in our database! Please try again. </p>
+        </div>
     </div>
-
-    </div>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="assets/js/script.js"></script>
 </body>
+
 </html>

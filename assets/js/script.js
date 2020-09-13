@@ -8,7 +8,7 @@ var recipeContainerEl = document.querySelector(".recipe-cont");
 var movieName = localStorage.getItem("movies")
 var recipeMainContainer = document.querySelector("#recipe-list");
 var recipeHeader = document.querySelector("#recipes-header");
-    recipeHeader.style.display="none";
+recipeHeader.style.display = "none";
 var postercontainerEl = document.querySelector("#poster-container")
 var rRecipeApiKey = "&apiKey=0c7c604f01a143d598df0735356390c3";
 var rRecipeApiKey2 = "&apiKey=119f114f6e334171834908713fb964b8";
@@ -21,29 +21,24 @@ var searchHistoryEl = document.querySelector("#search-history");
 
 // Local Storage Function for Movie Search History
 //var historyStorage = function(name) {
-  //  localStorage.setItem("movies", name)
-   
+//  localStorage.setItem("movies", name)
 
-    // Search History Loop
+// Search History Loop
+// Create Buttons for Each Search History Term
 
-    // Create Buttons for Each Search History Term
-    
-    // Append Buttons to History Div
-
-    // Set TextContent for Button
-
+// Append Buttons to History Div
+// Set TextContent for Button
 //};
-
 // Local Storage Function
-var movieStorage = function(title, genre) {
-    var movie = {title:title, genre:genre}
-    console.log(title,genre)
+var movieStorage = function (title, genre) {
+    var movie = {
+        title: title,
+        genre: genre
+    }
+    console.log(title, genre)
     var movies = JSON.parse(localStorage.getItem("movies"))
-
     console.log("The movie:", movies)
-
-
-    if(!movies){
+    if (!movies) {
         movies = [movie]
     } else {
         movies = movies.concat([movie])
@@ -53,50 +48,40 @@ var movieStorage = function(title, genre) {
     console.log(localStorage.getItem("movies"));
     console.log(movies[0].title)
     console.log(movies[0].genre)
-
 };
-
 // Movie Poster Fetch
-var getMoviePoster = function(movie) {
+var getMoviePoster = function (movie) {
     var tempCity = movie.replace(' ', '%20')
-
     var apiUrl = `http://www.omdbapi.com/?${rMovieApiKey2}&t=${tempCity}`;
     console.log(apiUrl)
+    fetch(apiUrl).then(function (Response) {
 
-    fetch(apiUrl).then(function(Response) {
-       
         return Response.json().then(function (data) {
-        
-            var movieTitle = data.Title
-            var movieGenre = data.Genre.split(' ').pop()
-            var moviePoster = data.Poster
-            var moviePlot = data.Plot
-        
-             movieStorage(movieTitle, movieGenre);
 
-            // Pass Movie Title and Poster to displayPoster Function
-            displayPoster(movieTitle, moviePoster);
+                var movieTitle = data.Title
+                var movieGenre = data.Genre.split(' ').pop()
+                var moviePoster = data.Poster
+                var moviePlot = data.Plot
 
-            //set movie genre to searchhandler
-            // searchHandler(movieGenre)
-            console.log(localStorage.getItem("movies"));
-            var lastMovie = JSON.parse(localStorage.getItem("movies"));
-            getRecipes(lastMovie[lastMovie.length-1]);
-            
-        })
-        .catch(function(error) {
-            console.log("Not a valid movie name");
-            modal.style.display = "block";
-        });
+                movieStorage(movieTitle, movieGenre);
+                // Pass Movie Title and Poster to displayPoster Function
+                displayPoster(movieTitle, moviePoster);
+                //set movie genre to searchhandler
+                // searchHandler(movieGenre)
+                console.log(localStorage.getItem("movies"));
+                var lastMovie = JSON.parse(localStorage.getItem("movies"));
+                getRecipes(lastMovie[lastMovie.length - 1]);
+
+            })
+            .catch(function (error) {
+                console.log("Not a valid movie name");
+                modal.style.display = "block";
+            });
     });
 };
-
-
-
 //Fetch Recipes
-var getRecipes = function(meal) {
-
-console.log(meal)
+var getRecipes = function (meal) {
+    console.log(meal)
 
     // If Statement for Pairing Movie Genre with Ingredients
     var cuisine = genreToCuisine(meal.genre);
@@ -104,23 +89,21 @@ console.log(meal)
 
 
     var api = `https://api.spoonacular.com/recipes/random?number=3&tags=${cuisine}` + rRecipeApiKey;
-        console.log(api);
-        
-        // recipeMainContainer.innerHTML= ' ';
-        whateva.innerHTML= ' ';
-        
-        fetch(api)
-        .then(function(response) {
-            
-        //request was successful
+    console.log(api);
+
+    // recipeMainContainer.innerHTML= ' ';
+    whateva.innerHTML = ' ';
+
+    fetch(api)
+        .then(function (response) {
+
+            //request was successful
             return response.json();
         })
-        .then(function(data){
+        .then(function (data) {
+            for (let i = 0; i < data.recipes.length; i++) {
 
-            for (let i = 0; i < data.recipes.length; i++){
-                
                 recipeHeader.style.display = "block";
-
                 var columnEl = document.createElement('div')
                 columnEl.setAttribute('class', 'col s12')
                 // headerDivEl = document.createElement('div')
@@ -128,13 +111,12 @@ console.log(meal)
                 // columnHeaderEl.textContent = "Recipes"
                 // columnHeaderEl.setAttribute('class', 'column-header center')
                 // headerDivEl.appendChild(columnHeaderEl)
-                
-                
+
+
                 // all content will append to this then this will append to columnEl
                 contentCardEl = document.createElement('div')
                 contentCardEl.setAttribute('class', 'card horizontal box-shadow')
                 columnEl.appendChild(contentCardEl)
-
                 // Food image
                 var recipeImage = data.recipes[i].image
                 imageContainerEl = document.createElement('div')
@@ -143,7 +125,7 @@ console.log(meal)
                 imageEl.setAttribute('src', `${recipeImage}`)
                 imageContainerEl.appendChild(imageEl)
                 contentCardEl.appendChild(imageContainerEl)
-                
+
                 // Card stacked div holds all content left to append to contentCardEl
                 cardContentEl = document.createElement('div')
                 cardContentEl.setAttribute('class', 'card-stacked')
@@ -151,8 +133,7 @@ console.log(meal)
                 cardStackedEl.setAttribute('class', 'card-content')
                 cardContentEl.appendChild(cardStackedEl)
                 contentCardEl.appendChild(cardContentEl)
-
-                 // Recipe name and info
+                // Recipe name and info
                 var recipeName = data.recipes[i].title
                 recipeNameEl = document.createElement('h4')
                 recipeNameEl.textContent = recipeName
@@ -163,7 +144,6 @@ console.log(meal)
                 recipeInfoEl.setAttribute('class', 'disable-link')
                 cardStackedEl.appendChild(recipeNameEl)
                 cardStackedEl.appendChild(recipeInfoEl)
-
                 // recipe link
                 var recipeLink = data.recipes[i].sourceUrl
                 recipeLinkContainerEl = document.createElement('div')
@@ -174,9 +154,9 @@ console.log(meal)
                 recipeLinkEl.setAttribute('target', '_blank')
                 recipeLinkEl.textContent = "See Recipe"
                 cardStackedEl.appendChild(recipeLinkEl)
-                
-                
-                
+
+
+
                 // recipeLinkEl.setAttribute('class', 'waves-effect waves-light btn')
                 // recipeLinkEl.setAttribute('target', '_blank')
                 // recipeLinkContainerEl.appendChild(recipeLinkEl)
@@ -188,35 +168,31 @@ console.log(meal)
                 //     var ingUnits = data.recipes[0].extendedIngredients[ing].measures.us.unitLong
                 //     var ingShop = ingamount + ' ' + ingUnits
                 // }
-
                 // // instruction loop
                 // for (let inst = 0; inst < data.recipes[0].analyzedInstructions[0].steps.length; inst++){
                 //     var cookSteps = data.recipes[0].analyzedInstructions[0].steps[inst].step
                 // }
                 whateva.appendChild(columnEl)
                 // recipeMainContainer.appendChild(columnHeaderEl)
-               
+
                 // recipeMainContainer.appendChild(columnEl)
                 // recipeMainContainer.appendChild(columnHeaderEl)
-                
-                
+
+
             }
         })
-        
+
 };
-
-
 // Funtion to Display Movie Poster
-var displayPoster = function(movieTitle, moviePoster) {
+var displayPoster = function (movieTitle, moviePoster) {
     // Clear previous poster
-    postercontainerEl.textContent="";
-
+    postercontainerEl.textContent = "";
     // Create Header with Movie Title
     var movieTitleEl = document.createElement('h4')
     movieTitleEl.textContent = movieTitle
     movieTitleEl.setAttribute('class', 'column-header center')
     movieTitleEl.setAttribute('id', 'movie-title')
-    
+
     // Create Div to Hold Movie Poster
     var moviePosterContainer = document.createElement('div')
     moviePosterContainer.setAttribute('id', 'movie-poster')
@@ -225,76 +201,76 @@ var displayPoster = function(movieTitle, moviePoster) {
     moviePosterEl.setAttribute('src', `${moviePoster}`)
     moviePosterEl.setAttribute('class', 'poster-img box-shadow')
     moviePosterContainer.appendChild(moviePosterEl)
-
     // Display Elements
     postercontainerEl.appendChild(movieTitleEl)
     postercontainerEl.appendChild(moviePosterContainer)
 
-   titleToDisplay();
+    displaySearchTitle();
 
 };
 
+var displaySearchTitle = function() {
+    var retrievedMovies = localStorage.getItem("movies")
+    var previousMovieEl = JSON.parse(retrievedMovies);
+    var movie_len = (previousMovieEl.length > 3) ? 3 : previousMovieEl.length;
+    for (var search = 0; search < movie_len; search++) {
+        console.log(previousMovieEl[search]);
+    }
+    searchHistoryEl.appendChild(createHistoryElement(previousMovieEl[previousMovieEl.length - 1].title, previousMovieEl[previousMovieEl.length - 1].genre));
+};
+
+
 // Function to Display Prior Searches
-    var titleToDisplay = function()
-    {
-        var retrievedMovies =localStorage.getItem("movies")
-        var previousMovieEl = JSON.parse(retrievedMovies);                
-        var movie_len = (previousMovieEl.length > 3) ? 3:previousMovieEl.length;
-    for (var search = 0; search < previousMovieEl.length; search++)
-        {
-    console.log(previousMovieEl[search]);
-    //var titleheader = document.createElement("h3");
-   // titleheader.style.color = "red";
-   // titleheader.innerHTML = previousMovieEl[search].title;
-    searchHistoryEl.appendChild(createHistoryElement(previousMovieEl[search].title, previousMovieEl[search].genre));
+var titleToDisplay = function () {
+    var retrievedMovies = localStorage.getItem("movies")
+    var previousMovieEl = JSON.parse(retrievedMovies);
+    var movie_len = (previousMovieEl.length > 3) ? 3 : previousMovieEl.length;
+    for (var search = 0; search < movie_len; search++) {
+        console.log(previousMovieEl[search]);
+        searchHistoryEl.appendChild(createHistoryElement(previousMovieEl[search].title, previousMovieEl[search].genre));
 
-        
-        //searchHistoryEl.appendChild(previousMovieEl[search])
-        
-  }
-  function createHistoryElement(title, genre)
-  {
-  var titleholder = document.createElement("h3");
-  titleholder.style.color = "white";
-  titleholder.innerHTML = title+"<br>"+genre;
-  return titleholder;
+    }
+
+};
+
+function createHistoryElement(title, genre) {
+    var container = document.createElement("div");
+
+    var titleholder = document.createElement("h4");
+    titleholder.style.color = "white";
+    titleholder.innerHTML = title;
+    container.appendChild(titleholder);
+
+    return container;
+
 }
-
- }
-
-   
-
 
 
 
 
 // Function for Hovering over Recipes
-
 // // Global Function | Get Local Storage Names and Pass Into Functions
-var searchHandler = function() {
+var searchHandler = function () {
     event.preventDefault();
     //console.log(genreName);
     console.log(inputEl.value);
-
     // if (genreName) {
     //     // getRecipes(genreValue);
     //     // genreStorage(genreName)
-        
+
     // }  else {
     //     localStorage.setItem('genres', "")
-        
+
     // }
-   
 
     if (inputEl.value) {
         getMoviePoster(inputEl.value);
         // historyStorage(inputEl.value);
         //  document.querySelector('.movie-input').value = ""
     }
-    
-    
-};
 
+
+};
 // //Event Listener for Submit Button
 submitBtnEl.addEventListener("click", searchHandler)
 // //repopulate page after refresh
@@ -307,79 +283,62 @@ submitBtnEl.addEventListener("click", searchHandler)
 //     } else {
 //         localStorage.setItem("movies", "");
 //     }
-
 //     if(genreName) {
 //         getRecipes(genreName)
 //     } else {
 //         localStorage.setItem("genre", "");
 //     }
-
 // }, false);
-
 // Function to Assign Cuisine Types to Movie Genres
-
 function genreToCuisine(genre) {
     var cuisine
-    if (genre==="Action") {
+    if (genre === "Action") {
         cuisine = "japanese"
-    }
-    else if (genre==="Adventure") {
+    } else if (genre === "Adventure") {
         cuisine = "german"
-    }
-    else if (genre==="Bollywood") {
+    } else if (genre === "Bollywood") {
         cuisine = "indian"
-    }
-    else if (genre==="Comedy") {
+    } else if (genre === "Comedy") {
         cuisine = "mexican"
-    }
-    else if (genre==="Documentary") {
+    } else if (genre === "Documentary") {
         cuisine = "spanish"
-    }
-    else if (genre==="Drama") {
+    } else if (genre === "Drama") {
         cuisine = "french"
-    }
-    else if (genre==="Family" || genre==="Animation") {
+    } else if (genre === "Family" || genre === "Animation") {
         cuisine = "american"
-    }
-    else if (genre==="Fantasy") {
+    } else if (genre === "Fantasy") {
         cuisine = "vietnamese"
-    }
-    else if (genre==="Horror") {
+    } else if (genre === "Horror") {
         cuisine = "indian"
-    }
-    else if (genre==="Romantic") {
+    } else if (genre === "Romantic") {
         cuisine = "Thai"
-    }
-    else if (genre==="Sci-Fi") {
+    } else if (genre === "Sci-Fi") {
         cuisine = "chinese"
-    }
-    else if (genre==="Superhero") {
+    } else if (genre === "Superhero") {
         cuisine = "mediterranean"
-    }
-    else if (genre==="Thriller" || genre==="Mystery") {
+    } else if (genre === "Thriller" || genre === "Mystery") {
         cuisine = "cajun"
-    }
-    else if (genre==="Western") {
+    } else if (genre === "Western") {
         cuisine = "southern"
-    }
-    else {
+    } else {
         cuisine = "british"
     }
     return cuisine;
 };
-
 //Modal Functions
-span.onclick = function() {
+span.onclick = function () {
     modal.style.display = "none";
 
 }
 
-window.onclick = function(event) {
+window.onclick = function (event) {
     if (event.target == modal) {
         modal.style.display = "block";
     }
-    
+
 }
+
+window.addEventListener("load", titleToDisplay());
 
 // var dietPlan = function() {
 //     var dietoptions = document.label[0];
@@ -392,7 +351,6 @@ window.onclick = function(event) {
 //         }
 
 //     }
-    
-    
-// }
 
+
+// }
