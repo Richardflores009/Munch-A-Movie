@@ -3,10 +3,10 @@ var inputEl = document.querySelector(".validate");
 var submitBtnEl = document.querySelector(".btn");
 var posterEl = document.querySelector(".poster");
 var historyEl = document.querySelector(".history");
-var whateva = document.querySelector('#whatever-u-want')
+var whateva = document.querySelector('#whatever-u-want');
 var recipeContainerEl = document.querySelector(".recipe-cont");
 var movieName = localStorage.getItem("movies")
-var recipeMainContainer = document.querySelector("#recipe-list")
+var recipeMainContainer = document.querySelector("#recipe-list");
 var recipeHeader = document.querySelector("#recipes-header");
     recipeHeader.style.display="none";
 var postercontainerEl = document.querySelector("#poster-container")
@@ -17,6 +17,7 @@ var rMovieApiKey = "apikey=84c248ca";
 var rMovieApiKey2 = "apikey=67c1ed90";
 var modal = document.getElementById("myModal");
 var span = document.getElementsByClassName("close")[0];
+var searchHistoryEl = document.querySelector("#search-history");
 
 // Local Storage Function for Movie Search History
 //var historyStorage = function(name) {
@@ -48,7 +49,6 @@ var movieStorage = function(title, genre) {
         movies = movies.concat([movie])
     }
 
-    //window.localStorage.setItem("movies", JSON.stringify(movies))
     localStorage.setItem("movies", JSON.stringify(movies))
     console.log(localStorage.getItem("movies"));
     console.log(movies[0].title)
@@ -80,8 +80,9 @@ var getMoviePoster = function(movie) {
             //set movie genre to searchhandler
             // searchHandler(movieGenre)
             console.log(localStorage.getItem("movies"));
-            var lastMovie = JSON.parse(localStorage.getItem("movies")).pop();
-            getRecipes(lastMovie);
+            var lastMovie = JSON.parse(localStorage.getItem("movies"));
+            getRecipes(lastMovie[lastMovie.length-1]);
+            
         })
         .catch(function(error) {
             console.log("Not a valid movie name");
@@ -99,6 +100,7 @@ console.log(meal)
 
     // If Statement for Pairing Movie Genre with Ingredients
     var cuisine = genreToCuisine(meal.genre);
+    //var dietchoice = dietPlan()
 
 
     var api = `https://api.spoonacular.com/recipes/random?number=3&tags=${cuisine}` + rRecipeApiKey;
@@ -228,7 +230,39 @@ var displayPoster = function(movieTitle, moviePoster) {
     postercontainerEl.appendChild(movieTitleEl)
     postercontainerEl.appendChild(moviePosterContainer)
 
+   titleToDisplay();
+
 };
+
+// Function to Display Prior Searches
+    var titleToDisplay = function()
+    {
+        var retrievedMovies =localStorage.getItem("movies")
+        var previousMovieEl = JSON.parse(retrievedMovies);                
+        var movie_len = (previousMovieEl.length > 3) ? 3:previousMovieEl.length;
+    for (var search = 0; search < previousMovieEl.length; search++)
+        {
+    console.log(previousMovieEl[search]);
+    //var titleheader = document.createElement("h3");
+   // titleheader.style.color = "red";
+   // titleheader.innerHTML = previousMovieEl[search].title;
+    searchHistoryEl.appendChild(createHistoryElement(previousMovieEl[search].title, previousMovieEl[search].genre));
+
+        
+        //searchHistoryEl.appendChild(previousMovieEl[search])
+        
+  }
+  function createHistoryElement(title, genre)
+  {
+  var titleholder = document.createElement("h3");
+  titleholder.style.color = "white";
+  titleholder.innerHTML = title+"<br>"+genre;
+  return titleholder;
+}
+
+ }
+
+   
 
 
 
@@ -337,12 +371,14 @@ function genreToCuisine(genre) {
 //Modal Functions
 span.onclick = function() {
     modal.style.display = "none";
+
 }
 
 window.onclick = function(event) {
     if (event.target == modal) {
         modal.style.display = "block";
     }
+    
 }
 
 // var dietPlan = function() {
@@ -356,6 +392,7 @@ window.onclick = function(event) {
 //         }
 
 //     }
+    
     
 // }
 
