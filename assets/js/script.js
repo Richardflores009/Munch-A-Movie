@@ -214,7 +214,7 @@ var displaySearchTitle = function() {
     var previousMovieEl = JSON.parse(retrievedMovies);
     var movie_len = (previousMovieEl.length > 3) ? 3 : previousMovieEl.length;
     for (var search = 0; search < movie_len; search++) {
-        console.log(previousMovieEl[search]);
+        //console.log(previousMovieEl[search]);
     }
     searchHistoryEl.appendChild(createHistoryElement(previousMovieEl[previousMovieEl.length - 1].title, previousMovieEl[previousMovieEl.length - 1].genre));
 };
@@ -226,24 +226,18 @@ var titleToDisplay = function () {
     var previousMovieEl = JSON.parse(retrievedMovies);
     var movie_len = (previousMovieEl.length > 3) ? 3 : previousMovieEl.length;
     for (var search = 0; search < movie_len; search++) {
-        console.log(previousMovieEl[search]);
+        //console.log(previousMovieEl[search]);
         searchHistoryEl.appendChild(createHistoryElement(previousMovieEl[search].title, previousMovieEl[search].genre));
 
     }
 
 };
 
-function createHistoryElement(title, genre) {
-    var container = document.createElement("div");
 
-    var titleholder = document.createElement("h4");
-    titleholder.style.color = "white";
-    titleholder.innerHTML = title;
-    container.appendChild(titleholder);
 
-    return container;
 
-}
+
+
 
 
 
@@ -273,6 +267,23 @@ var searchHandler = function () {
 };
 // //Event Listener for Submit Button
 submitBtnEl.addEventListener("click", searchHandler)
+
+function createHistoryElement(title, genre) {
+    var movieButtonEl = document.createElement("button");
+    var titleholder = document.createElement("h4");
+    titleholder.style.color = "black";
+    titleholder.innerHTML = title;
+    movieButtonEl.appendChild(titleholder);
+    movieButtonEl.addEventListener("click", function(event) {
+        event.preventDefault();
+        console.log(title);
+        
+    })
+
+    return movieButtonEl;
+    
+};
+
 // //repopulate page after refresh
 // window.addEventListener('load',
 // function(){
