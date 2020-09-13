@@ -14,6 +14,7 @@ var rRecipeApiKey = "&apiKey=0c7c604f01a143d598df0735356390c3";
 var rRecipeApiKey2 = "&apiKey=119f114f6e334171834908713fb964b8";
 var rRecipeApiKey3 = "&apiKey=8496184c37164d1a9b0b16b42f58bc2b";
 var rMovieApiKey = "apikey=84c248ca";
+var rMovieApiKey2 = "apikey=67c1ed90";
 var modal = document.getElementById("myModal");
 var span = document.getElementsByClassName("close")[0];
 
@@ -59,7 +60,7 @@ var movieStorage = function(title, genre) {
 var getMoviePoster = function(movie) {
     var tempCity = movie.replace(' ', '%20')
 
-    var apiUrl = `http://www.omdbapi.com/?${rMovieApiKey}&t=${tempCity}`;
+    var apiUrl = `http://www.omdbapi.com/?${rMovieApiKey2}&t=${tempCity}`;
     console.log(apiUrl)
 
     fetch(apiUrl).then(function(Response) {
@@ -100,7 +101,7 @@ console.log(meal)
     var cuisine = genreToCuisine(meal.genre);
 
 
-    var api = `https://api.spoonacular.com/recipes/random?number=3&tags=${cuisine}` + rRecipeApiKey3;
+    var api = `https://api.spoonacular.com/recipes/random?number=3&tags=${cuisine}` + rRecipeApiKey;
         console.log(api);
         
         // recipeMainContainer.innerHTML= ' ';
@@ -343,3 +344,18 @@ window.onclick = function(event) {
         modal.style.display = "block";
     }
 }
+
+// var dietPlan = function() {
+//     var dietoptions = document.label[0];
+//     var txt = "";
+//     for (var j=0; j < dietoptions.length; j++)
+//     {
+//         if (diet-options[j].checked) {
+//             txt = txt + dietoptions[j].value +" "
+//             console.log(txt);
+//         }
+
+//     }
+    
+// }
+
