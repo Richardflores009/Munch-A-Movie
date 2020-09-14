@@ -3,7 +3,7 @@ var inputEl = document.querySelector(".validate");
 var submitBtnEl = document.querySelector(".btn");
 var posterEl = document.querySelector(".poster");
 var historyEl = document.querySelector(".history");
-var whateva = document.querySelector('#whatever-u-want');
+var recipesContent = document.querySelector('#recipes-content');
 var recipeContainerEl = document.querySelector(".recipe-cont");
 var movieName = localStorage.getItem("movies")
 var recipeMainContainer = document.querySelector("#recipe-list");
@@ -92,7 +92,7 @@ var getRecipes = function (meal) {
     var api = `https://api.spoonacular.com/recipes/random?number=3&tags=${cuisine}` + rRecipeApiKey3;
 
     // Clear Previous Searches
-    whateva.innerHTML = ' ';
+    recipesContent.innerHTML = ' ';
 
     fetch(api)
         .then(function (response) {
@@ -152,7 +152,7 @@ var getRecipes = function (meal) {
                 recipeLinkEl.textContent = "See Recipe"
                 cardStackedEl.appendChild(recipeLinkEl)
 
-                whateva.appendChild(columnEl)
+                recipesContent.appendChild(columnEl)
             }
         })
 };
@@ -294,7 +294,7 @@ function genreToCuisine(genre) {
     } else if (genre === "Western") {
         cuisine = "southern"
     } else {
-        cuisine = "british"
+        cuisine = "popular"
     }
     return cuisine;
 };
