@@ -11,6 +11,7 @@
 </head>
 
 <body>
+    <!--Page Header-->
     <header>
         <nav class="nav-extended center">
             <div class="nav-wrapper">
@@ -22,7 +23,7 @@
         </nav>
     </header>
     <main>
-        <!--input div-->
+        <!--User Input-->
         <div class="row">
             <form class="col white form-style s10 m10 l6">
                 <h4>What movie are you watching tonight?</h4>
@@ -59,83 +60,30 @@
                 <button class="btn waves-effect waves-light" type="submit">Search</button>
             </form>
         </div>
-        <!--left column-->
+
+        <!--Left Column | Search History-->
         <div class="row">
             <div class="col s12 m12 l2 row-color">
                 <h4 id ="searched-movies" class="column-header center">History</h4>
                 <div id="search-history" class="collection center box-shadow">
-                    
-                    <!-- <a href="#" class="collection-item black-text">Incredibles</a>
-                    <a href="#" class="collection-item black-text">Ghost Rider</a>
-                    <a href="#" class="collection-item black-text">Alvin and the Chipmunks</a> -->
                 </div>
             </div>
 
-            <!--middle column-->
+            <!--Middle Column | Movie Poster-->
             <div id="poster-container" class="col s12 m5 l4 row-color">
-                <!-- <h4 id="movie-title" class="column-header center">Incredibles 2</h4>
-                <div id="movie-poster">
-                    <img id="poster-img" src="./assets/img/incredibles.jpg" alt="" class="poster-img box-shadow">
-                </div>     -->
             </div>
-            <!--right column-->
+
+            <!--Right Column | Recipes-->
             <div id="recipe-list" class="col s12 m7 l6 row-color">
                 <div>
                     <h4 class="column-header center" id="recipes-header">Recipes</h4>
                 </div>
-                <div id="whatever-u-want"></div>
-                <!-- <div class="col s12"> -->
-
-                <!-- <div class="card horizontal box-shadow">
-                        <div class="card-image">
-                            <img id="recipe-one" src="./assets/img/burger.jpg">
-                        </div>
-                        <div class="card-stacked">
-                            <div class="card-content">
-                                <h4 id="recipe-one-name">Burger</h4>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab, ipsam. Iusto ut minus recusandae nobis cumque quasi, inventore possimus consequuntur voluptates mollitia, odit corporis odio fugit, exercitationem totam temporibus ducimus.</p>
-                            </div>
-                            <div class="card-action">
-                                <a class="waves-effect waves-light btn" target="_blank" id="recipe-one-link" href="https://www.thewholesomedish.com/the-best-classic-burger/">See Recipe</a>
-                            </div>
-                        </div>
-                    </div> -->
-                <!-- </div> -->
-                <!-- <div class="col s12">
-                    <div class="card horizontal box-shadow">
-                        <div class="card-image">
-                            <img src="./assets/img/taco.jpg">
-                        </div>
-                        <div class="card-stacked">
-                            <div class="card-content">
-                                <h4>Taco Thing Sandwich</h4>
-                                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta eligendi maxime deserunt similique, id officiis neque facilis mollitia natus nam eius suscipit distinctio dolore ullam ex rem nesciunt aperiam placeat!</p>
-                            </div>
-                            <div class="card-action">
-                                <a class="waves-effect waves-light btn" href="https://www.simplyrecipes.com/recipes/mexican_tostada/">See Recipe</a>
-                            </div>
-                        </div>
-                    </div>
+                <div id="whatever-u-want">
                 </div>
-                <div class="col s12">
-                    <div class="card horizontal box-shadow">
-                        <div class="card-image">
-                            <img src="./assets/img/lobroll.jpg">
-                        </div>
-                        <div class="card-stacked">
-                            <div class="card-content">
-                                <h4>Lobster Roll</h4>
-                                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Itaque nam, quasi unde saepe blanditiis eius voluptates minus illum! Necessitatibus incidunt alias quaerat itaque explicabo, earum debitis aliquam magnam eveniet tempore.</p>
-                            </div>
-                            <div class="card-action">
-                                <a class="waves-effect waves-light btn" href="https://www.bonappetit.com/recipe/bas-ultimate-lobster-rolls">See Recipe</a>
-                            </div>
-                        </div>
-                    </div> -->
             </div>
         </div>
-        </div>
     </main>
+
     <!-- Modal -->
     <div id="myModal" class="modal">
         <div class="modal-content">
@@ -143,6 +91,8 @@
             <p>Uh oh! The movie you have selected is not in our database! Please try again. </p>
         </div>
     </div>
+
+    <!--Scripts-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="assets/js/script.js"></script>

@@ -84,7 +84,7 @@ var getRecipes = function (meal) {
     fetch(api)
         .then(function (response) {
 
-            //request was successful
+            //Request Was Successful
             return response.json();
         })
         .then(function (data) {
@@ -99,7 +99,7 @@ var getRecipes = function (meal) {
                 contentCardEl.setAttribute('class', 'card horizontal box-shadow')
                 columnEl.appendChild(contentCardEl)
 
-                // Food image
+                // Food Image
                 var recipeImage = data.recipes[i].image
                 imageContainerEl = document.createElement('div')
                 imageContainerEl.setAttribute('class', 'card-image')
@@ -116,7 +116,7 @@ var getRecipes = function (meal) {
                 cardContentEl.appendChild(cardStackedEl)
                 contentCardEl.appendChild(cardContentEl)
 
-                // Recipe name and info
+                // Recipe Name and Info
                 var recipeName = data.recipes[i].title
                 recipeNameEl = document.createElement('h4')
                 recipeNameEl.textContent = recipeName
@@ -128,7 +128,7 @@ var getRecipes = function (meal) {
                 cardStackedEl.appendChild(recipeNameEl)
                 cardStackedEl.appendChild(recipeInfoEl)
 
-                // recipe link
+                // Recipe Link
                 var recipeLink = data.recipes[i].sourceUrl
                 recipeLinkContainerEl = document.createElement('div')
                 recipeLinkContainerEl.setAttribute('class', 'card-action')
@@ -146,7 +146,8 @@ var getRecipes = function (meal) {
 
 // Funtion to Display Movie Poster
 var displayPoster = function (movieTitle, moviePoster) {
-    // Clear previous poster
+
+    // Clear Previous Poster
     postercontainerEl.textContent = "";
 
     // Create Header with Movie Title
@@ -185,6 +186,7 @@ var displaySearchTitle = function() {
 
     for (var search = 0; search < movie_len; search++) {
     }
+    
     // Limit Display to 3 Movies
     if (movie_len > 3) {
         var oldData = searchHistoryEl.firstElementChild;
@@ -285,13 +287,14 @@ function genreToCuisine(genre) {
 span.onclick = function () {
     modal.style.display = "none";
 
-}
+};
+
 window.onclick = function (event) {
     if (event.target == modal) {
         modal.style.display = "block";
     }
 
-}
+};
 
 // Page Load
 window.addEventListener("load", titleToDisplay());
