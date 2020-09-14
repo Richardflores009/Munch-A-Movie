@@ -88,7 +88,7 @@ var getRecipes = function (meal) {
     //var dietchoice = dietPlan()
 
 
-    var api = `https://api.spoonacular.com/recipes/random?number=3&tags=${cuisine}` + rRecipeApiKey;
+    var api = `https://api.spoonacular.com/recipes/random?number=3&tags=${cuisine}` + rRecipeApiKey2;
     console.log(api);
 
     // recipeMainContainer.innerHTML= ' ';
@@ -206,15 +206,20 @@ var displayPoster = function (movieTitle, moviePoster) {
     postercontainerEl.appendChild(moviePosterContainer)
 
     displaySearchTitle();
+    inputEl.value=""
 
 };
 
 var displaySearchTitle = function() {
     var retrievedMovies = localStorage.getItem("movies")
     var previousMovieEl = JSON.parse(retrievedMovies);
-    var movie_len = (previousMovieEl.length > 3) ? 3 : previousMovieEl.length;
+    var movie_len = previousMovieEl.length;
     for (var search = 0; search < movie_len; search++) {
         //console.log(previousMovieEl[search]);
+    }
+    if (movie_len > 3) {
+        var oldData = searchHistoryEl.firstElementChild;
+        searchHistoryEl.removeChild(oldData);
     }
     searchHistoryEl.appendChild(createHistoryElement(previousMovieEl[previousMovieEl.length - 1].title, previousMovieEl[previousMovieEl.length - 1].genre));
 };
@@ -234,17 +239,9 @@ var titleToDisplay = function () {
 };
 
 
-
-
-
-
-
-
-
-
 // Function for Hovering over Recipes
 // // Global Function | Get Local Storage Names and Pass Into Functions
-var searchHandler = function () {
+var searchHandler = function (title) {
     event.preventDefault();
     //console.log(genreName);
     console.log(inputEl.value);
@@ -261,6 +258,10 @@ var searchHandler = function () {
         getMoviePoster(inputEl.value);
         // historyStorage(inputEl.value);
         //  document.querySelector('.movie-input').value = ""
+    } else if (title){
+        // get movie poster for button clicks
+        getMoviePoster(title);
+
     }
 
 
@@ -274,11 +275,16 @@ function createHistoryElement(title, genre) {
     titleholder.style.color = "black";
     titleholder.innerHTML = title;
     movieButtonEl.appendChild(titleholder);
+
     movieButtonEl.addEventListener("click", function(event) {
         event.preventDefault();
         console.log(title);
         
-    })
+        // send title to searchHandler function as inputEl
+        searchHandler(title);
+
+
+    });
 
     return movieButtonEl;
     
