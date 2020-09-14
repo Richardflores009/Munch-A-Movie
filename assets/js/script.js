@@ -88,7 +88,7 @@ var getRecipes = function (meal) {
     //var dietchoice = dietPlan()
 
 
-    var api = `https://api.spoonacular.com/recipes/random?number=3&tags=${cuisine}` + rRecipeApiKey;
+    var api = `https://api.spoonacular.com/recipes/random?number=3&tags=${cuisine}` + rRecipeApiKey2;
     console.log(api);
 
     // recipeMainContainer.innerHTML= ' ';
@@ -206,6 +206,7 @@ var displayPoster = function (movieTitle, moviePoster) {
     postercontainerEl.appendChild(moviePosterContainer)
 
     displaySearchTitle();
+    inputEl.value=""
 
 };
 
