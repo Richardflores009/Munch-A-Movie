@@ -234,17 +234,9 @@ var titleToDisplay = function () {
 };
 
 
-
-
-
-
-
-
-
-
 // Function for Hovering over Recipes
 // // Global Function | Get Local Storage Names and Pass Into Functions
-var searchHandler = function () {
+var searchHandler = function (title) {
     event.preventDefault();
     //console.log(genreName);
     console.log(inputEl.value);
@@ -261,6 +253,9 @@ var searchHandler = function () {
         getMoviePoster(inputEl.value);
         // historyStorage(inputEl.value);
         //  document.querySelector('.movie-input').value = ""
+    } else if (title){
+        getMoviePoster(title);
+
     }
 
 
@@ -274,11 +269,16 @@ function createHistoryElement(title, genre) {
     titleholder.style.color = "black";
     titleholder.innerHTML = title;
     movieButtonEl.appendChild(titleholder);
+
     movieButtonEl.addEventListener("click", function(event) {
         event.preventDefault();
         console.log(title);
         
-    })
+        // send title to searchHandler function as inputEl
+        searchHandler(title);
+
+
+    });
 
     return movieButtonEl;
     
