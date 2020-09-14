@@ -255,6 +255,7 @@ var searchHandler = function (title) {
         // historyStorage(inputEl.value);
         //  document.querySelector('.movie-input').value = ""
     } else if (title){
+        // get movie poster for button clicks
         getMoviePoster(title);
 
     }
