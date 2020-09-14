@@ -186,7 +186,7 @@ var displaySearchTitle = function() {
 
     for (var search = 0; search < movie_len; search++) {
     }
-    
+
     // Limit Display to 3 Movies
     if (movie_len > 3) {
         var oldData = searchHistoryEl.firstElementChild;
@@ -200,15 +200,16 @@ var displaySearchTitle = function() {
 var titleToDisplay = function () {
     var retrievedMovies = localStorage.getItem("movies");
 
-    // If no prior searches, do not display History header
-    // if (!retrievedMovies) {
-    //     searchedMovies.style.color="black"
-    //     searchedMovies.style.borderBottom="black"  
-    //}
-    var previousMovieEl = JSON.parse(retrievedMovies);
-    var movie_len = (previousMovieEl.length > 3) ? 3 : previousMovieEl.length;
-    for (var search = 0; search < movie_len; search++) {
-        searchHistoryEl.appendChild(createHistoryElement(previousMovieEl[search].title, previousMovieEl[search].genre));
+    // If No Search History, Do Not Display Search Header
+    if (retrievedMovies === null) {
+        searchedMovies.style.color="black"
+        searchedMovies.style.borderBottom="black"  
+    } else {
+        var previousMovieEl = JSON.parse(retrievedMovies);
+        var movie_len = (previousMovieEl.length > 3) ? 3 : previousMovieEl.length;
+        for (var search = 0; search < movie_len; search++) {
+            searchHistoryEl.appendChild(createHistoryElement(previousMovieEl[search].title, previousMovieEl[search].genre));
+        }
     }
 };
 
