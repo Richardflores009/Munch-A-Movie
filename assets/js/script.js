@@ -43,6 +43,7 @@ var movieStorage = function (title, genre) {
 
 // Movie Poster Fetch | OMDB API
 var getMoviePoster = function (movie) {
+  
     var tempCity = movie.replace(' ', '%20')
     var apiUrl = `http://www.omdbapi.com/?${rMovieApiKey3}&t=${tempCity}`;
     fetch(apiUrl).then(function (Response) {
@@ -52,6 +53,11 @@ var getMoviePoster = function (movie) {
                 var movieTitle = data.Title
                 var movieGenre = data.Genre.split(' ').pop()
                 var moviePoster = data.Poster
+
+                //Display History Column
+                searchHistoryEl.style.display="block";  
+                searchedMovies.style.color="red";
+                searchedMovies.style.borderBottom="thick double white";
 
                 //Pass to Local Storage
                 movieStorage(movieTitle, movieGenre);
@@ -202,8 +208,9 @@ var titleToDisplay = function () {
 
     // If No Search History, Do Not Display Search Header
     if (retrievedMovies === null) {
-        searchedMovies.style.color="black"
-        searchedMovies.style.borderBottom="black"  
+        searchedMovies.style.color="black";
+        searchedMovies.style.borderBottom="black";
+        searchHistoryEl.style.display="none";
     } else {
         var previousMovieEl = JSON.parse(retrievedMovies);
         var movie_len = (previousMovieEl.length > 3) ? 3 : previousMovieEl.length;
