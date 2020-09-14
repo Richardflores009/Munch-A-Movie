@@ -13,31 +13,25 @@ var postercontainerEl = document.querySelector("#poster-container")
 var rRecipeApiKey = "&apiKey=0c7c604f01a143d598df0735356390c3";
 var rRecipeApiKey2 = "&apiKey=119f114f6e334171834908713fb964b8";
 var rRecipeApiKey3 = "&apiKey=8496184c37164d1a9b0b16b42f58bc2b";
+var rRecipeApiKey4 = "&apiKey=fd2ce1b521e34e669afec9b791093734";
 var rMovieApiKey = "apikey=84c248ca";
 var rMovieApiKey2 = "apikey=67c1ed90";
+var rMovieApiKey3 = "apikey=a05b3cd4";
 var modal = document.getElementById("myModal");
 var span = document.getElementsByClassName("close")[0];
 var searchHistoryEl = document.querySelector("#search-history");
+var searchedMovies = document.querySelector("#searched-movies");
 
-// Local Storage Function for Movie Search History
-//var historyStorage = function(name) {
-//  localStorage.setItem("movies", name)
 
-// Search History Loop
-// Create Buttons for Each Search History Term
-
-// Append Buttons to History Div
-// Set TextContent for Button
-//};
 // Local Storage Function
 var movieStorage = function (title, genre) {
     var movie = {
         title: title,
         genre: genre
     }
-    console.log(title, genre)
+    
     var movies = JSON.parse(localStorage.getItem("movies"))
-    console.log("The movie:", movies)
+    
     if (!movies) {
         movies = [movie]
     } else {
@@ -45,15 +39,12 @@ var movieStorage = function (title, genre) {
     }
 
     localStorage.setItem("movies", JSON.stringify(movies))
-    console.log(localStorage.getItem("movies"));
-    console.log(movies[0].title)
-    console.log(movies[0].genre)
 };
-// Movie Poster Fetch
+
+// Movie Poster Fetch | OMDB API
 var getMoviePoster = function (movie) {
     var tempCity = movie.replace(' ', '%20')
-    var apiUrl = `http://www.omdbapi.com/?${rMovieApiKey2}&t=${tempCity}`;
-    console.log(apiUrl)
+    var apiUrl = `http://www.omdbapi.com/?${rMovieApiKey3}&t=${tempCity}`;
     fetch(apiUrl).then(function (Response) {
 
         return Response.json().then(function (data) {
@@ -61,37 +52,33 @@ var getMoviePoster = function (movie) {
                 var movieTitle = data.Title
                 var movieGenre = data.Genre.split(' ').pop()
                 var moviePoster = data.Poster
-                var moviePlot = data.Plot
 
+                //Pass to Local Storage
                 movieStorage(movieTitle, movieGenre);
+
                 // Pass Movie Title and Poster to displayPoster Function
                 displayPoster(movieTitle, moviePoster);
-                //set movie genre to searchhandler
-                // searchHandler(movieGenre)
-                console.log(localStorage.getItem("movies"));
+
                 var lastMovie = JSON.parse(localStorage.getItem("movies"));
                 getRecipes(lastMovie[lastMovie.length - 1]);
 
             })
             .catch(function (error) {
-                console.log("Not a valid movie name");
+                console.log("Error");
                 modal.style.display = "block";
             });
     });
 };
-//Fetch Recipes
+
+// Recipes Fetch | Spoonacular
 var getRecipes = function (meal) {
-    console.log(meal)
 
-    // If Statement for Pairing Movie Genre with Ingredients
+    // Pass to Function to Determine Cuisine Type
     var cuisine = genreToCuisine(meal.genre);
-    //var dietchoice = dietPlan()
 
+    var api = `https://api.spoonacular.com/recipes/random?number=3&tags=${cuisine}` + rRecipeApiKey3;
 
-    var api = `https://api.spoonacular.com/recipes/random?number=3&tags=${cuisine}` + rRecipeApiKey2;
-    console.log(api);
-
-    // recipeMainContainer.innerHTML= ' ';
+    // Clear Previous Searches
     whateva.innerHTML = ' ';
 
     fetch(api)
@@ -106,17 +93,12 @@ var getRecipes = function (meal) {
                 recipeHeader.style.display = "block";
                 var columnEl = document.createElement('div')
                 columnEl.setAttribute('class', 'col s12')
-                // headerDivEl = document.createElement('div')
-                // columnHeaderEl = document.createElement('h4')
-                // columnHeaderEl.textContent = "Recipes"
-                // columnHeaderEl.setAttribute('class', 'column-header center')
-                // headerDivEl.appendChild(columnHeaderEl)
-
 
                 // all content will append to this then this will append to columnEl
                 contentCardEl = document.createElement('div')
                 contentCardEl.setAttribute('class', 'card horizontal box-shadow')
                 columnEl.appendChild(contentCardEl)
+
                 // Food image
                 var recipeImage = data.recipes[i].image
                 imageContainerEl = document.createElement('div')
@@ -133,6 +115,7 @@ var getRecipes = function (meal) {
                 cardStackedEl.setAttribute('class', 'card-content')
                 cardContentEl.appendChild(cardStackedEl)
                 contentCardEl.appendChild(cardContentEl)
+
                 // Recipe name and info
                 var recipeName = data.recipes[i].title
                 recipeNameEl = document.createElement('h4')
@@ -144,6 +127,7 @@ var getRecipes = function (meal) {
                 recipeInfoEl.setAttribute('class', 'disable-link')
                 cardStackedEl.appendChild(recipeNameEl)
                 cardStackedEl.appendChild(recipeInfoEl)
+
                 // recipe link
                 var recipeLink = data.recipes[i].sourceUrl
                 recipeLinkContainerEl = document.createElement('div')
@@ -155,68 +139,53 @@ var getRecipes = function (meal) {
                 recipeLinkEl.textContent = "See Recipe"
                 cardStackedEl.appendChild(recipeLinkEl)
 
-
-
-                // recipeLinkEl.setAttribute('class', 'waves-effect waves-light btn')
-                // recipeLinkEl.setAttribute('target', '_blank')
-                // recipeLinkContainerEl.appendChild(recipeLinkEl)
-                // cardStackedEl.appendChild(recipeLinkContainerEl)
-                // ingredient loop
-                // for (let ing = 0; ing < data.recipes[0].extendedIngredients.length; ing++) {
-                //     var ingList = data.recipes[0].extendedIngredients[ing].name
-                //     var ingamount = data.recipes[0].extendedIngredients[ing].amount
-                //     var ingUnits = data.recipes[0].extendedIngredients[ing].measures.us.unitLong
-                //     var ingShop = ingamount + ' ' + ingUnits
-                // }
-                // // instruction loop
-                // for (let inst = 0; inst < data.recipes[0].analyzedInstructions[0].steps.length; inst++){
-                //     var cookSteps = data.recipes[0].analyzedInstructions[0].steps[inst].step
-                // }
                 whateva.appendChild(columnEl)
-                // recipeMainContainer.appendChild(columnHeaderEl)
-
-                // recipeMainContainer.appendChild(columnEl)
-                // recipeMainContainer.appendChild(columnHeaderEl)
-
-
             }
         })
-
 };
+
 // Funtion to Display Movie Poster
 var displayPoster = function (movieTitle, moviePoster) {
     // Clear previous poster
     postercontainerEl.textContent = "";
+
     // Create Header with Movie Title
-    var movieTitleEl = document.createElement('h4')
-    movieTitleEl.textContent = movieTitle
-    movieTitleEl.setAttribute('class', 'column-header center')
-    movieTitleEl.setAttribute('id', 'movie-title')
+    var movieTitleEl = document.createElement('h4');
+    movieTitleEl.textContent = movieTitle;
+    movieTitleEl.setAttribute('class', 'column-header center');
+    movieTitleEl.setAttribute('id', 'movie-title');
 
     // Create Div to Hold Movie Poster
-    var moviePosterContainer = document.createElement('div')
-    moviePosterContainer.setAttribute('id', 'movie-poster')
-    var moviePosterEl = document.createElement('img')
-    moviePosterEl.setAttribute('id', 'poster-img')
-    moviePosterEl.setAttribute('src', `${moviePoster}`)
-    moviePosterEl.setAttribute('class', 'poster-img box-shadow')
-    moviePosterContainer.appendChild(moviePosterEl)
-    // Display Elements
-    postercontainerEl.appendChild(movieTitleEl)
-    postercontainerEl.appendChild(moviePosterContainer)
+    var moviePosterContainer = document.createElement('div');
+    moviePosterContainer.setAttribute('id', 'movie-poster');
+    var moviePosterEl = document.createElement('img');
+    moviePosterEl.setAttribute('id', 'poster-img');
+    moviePosterEl.setAttribute('src', `${moviePoster}`);
+    moviePosterEl.setAttribute('class', 'poster-img box-shadow');
+    moviePosterContainer.appendChild(moviePosterEl);
 
+    // Display Elements
+    postercontainerEl.appendChild(movieTitleEl);
+    postercontainerEl.appendChild(moviePosterContainer);
+
+    // Call Function to Display Searched Movie in History
     displaySearchTitle();
+
+    // Clear Form
     inputEl.value=""
 
 };
 
+// Function to Display Searched Movies in History
 var displaySearchTitle = function() {
-    var retrievedMovies = localStorage.getItem("movies")
+
+    var retrievedMovies = localStorage.getItem("movies");
     var previousMovieEl = JSON.parse(retrievedMovies);
     var movie_len = previousMovieEl.length;
+
     for (var search = 0; search < movie_len; search++) {
-        //console.log(previousMovieEl[search]);
     }
+    // Limit Display to 3 Movies
     if (movie_len > 3) {
         var oldData = searchHistoryEl.firstElementChild;
         searchHistoryEl.removeChild(oldData);
@@ -225,87 +194,56 @@ var displaySearchTitle = function() {
 };
 
 
-// Function to Display Prior Searches
+// Function to Display Prior Searches from Local Storage Upon Page Reload
 var titleToDisplay = function () {
-    var retrievedMovies = localStorage.getItem("movies")
+    var retrievedMovies = localStorage.getItem("movies");
+
+    // If no prior searches, do not display History header
+    // if (!retrievedMovies) {
+    //     searchedMovies.style.color="black"
+    //     searchedMovies.style.borderBottom="black"  
+    //}
     var previousMovieEl = JSON.parse(retrievedMovies);
     var movie_len = (previousMovieEl.length > 3) ? 3 : previousMovieEl.length;
     for (var search = 0; search < movie_len; search++) {
-        //console.log(previousMovieEl[search]);
         searchHistoryEl.appendChild(createHistoryElement(previousMovieEl[search].title, previousMovieEl[search].genre));
-
     }
-
 };
 
-
-// Function for Hovering over Recipes
-// // Global Function | Get Local Storage Names and Pass Into Functions
+// Global Functions | Call Movie Poster Display Functions After Button Click
 var searchHandler = function (title) {
     event.preventDefault();
-    //console.log(genreName);
-    console.log(inputEl.value);
-    // if (genreName) {
-    //     // getRecipes(genreValue);
-    //     // genreStorage(genreName)
-
-    // }  else {
-    //     localStorage.setItem('genres', "")
-
-    // }
 
     if (inputEl.value) {
         getMoviePoster(inputEl.value);
-        // historyStorage(inputEl.value);
-        //  document.querySelector('.movie-input').value = ""
+
     } else if (title){
-        // get movie poster for button clicks
         getMoviePoster(title);
 
     }
-
-
 };
-// //Event Listener for Submit Button
-submitBtnEl.addEventListener("click", searchHandler)
 
+// //Event Listener for Submit Button
+submitBtnEl.addEventListener("click", searchHandler);
+
+// Function to Create Search History Buttons
 function createHistoryElement(title, genre) {
     var movieButtonEl = document.createElement("button");
     var titleholder = document.createElement("h4");
+    movieButtonEl.style.width="100%";
     titleholder.style.color = "black";
     titleholder.innerHTML = title;
     movieButtonEl.appendChild(titleholder);
 
     movieButtonEl.addEventListener("click", function(event) {
         event.preventDefault();
-        console.log(title);
         
         // send title to searchHandler function as inputEl
         searchHandler(title);
-
-
     });
-
-    return movieButtonEl;
-    
+    return movieButtonEl; 
 };
 
-// //repopulate page after refresh
-// window.addEventListener('load',
-// function(){
-//     if(movieName) {
-//         getMoviePoster(movieName)
-//         historyStorage(movieName)
-//         document.querySelector('.movie-input').value = ""
-//     } else {
-//         localStorage.setItem("movies", "");
-//     }
-//     if(genreName) {
-//         getRecipes(genreName)
-//     } else {
-//         localStorage.setItem("genre", "");
-//     }
-// }, false);
 // Function to Assign Cuisine Types to Movie Genres
 function genreToCuisine(genre) {
     var cuisine
@@ -342,12 +280,12 @@ function genreToCuisine(genre) {
     }
     return cuisine;
 };
-//Modal Functions
+
+// Modal Functions
 span.onclick = function () {
     modal.style.display = "none";
 
 }
-
 window.onclick = function (event) {
     if (event.target == modal) {
         modal.style.display = "block";
@@ -355,19 +293,5 @@ window.onclick = function (event) {
 
 }
 
+// Page Load
 window.addEventListener("load", titleToDisplay());
-
-// var dietPlan = function() {
-//     var dietoptions = document.label[0];
-//     var txt = "";
-//     for (var j=0; j < dietoptions.length; j++)
-//     {
-//         if (diet-options[j].checked) {
-//             txt = txt + dietoptions[j].value +" "
-//             console.log(txt);
-//         }
-
-//     }
-
-
-// }
