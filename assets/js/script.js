@@ -17,7 +17,8 @@ var rRecipeApiKey4 = "&apiKey=fd2ce1b521e34e669afec9b791093734";
 var rMovieApiKey = "apikey=84c248ca";
 var rMovieApiKey2 = "apikey=67c1ed90";
 var rMovieApiKey3 = "apikey=a05b3cd4";
-var modal = document.getElementById("myModal");
+var modalError = document.getElementById("modal-error");
+var modalBlank = document.getElementById("modal-blank");
 var span = document.getElementsByClassName("close")[0];
 var searchHistoryEl = document.querySelector("#search-history");
 var searchedMovies = document.querySelector("#searched-movies");
@@ -41,9 +42,15 @@ var movieStorage = function (title, genre) {
     localStorage.setItem("movies", JSON.stringify(movies))
 };
 
+//Function to Ensure Submit Form is Not Blank
+var formValidation = function() {
+    if (inputEl.value ==="") {
+        modalBlank.style.display = "block";
+    }
+};
+
 // Movie Poster Fetch | OMDB API
 var getMoviePoster = function (movie) {
-  
     var tempCity = movie.replace(' ', '%20')
     var apiUrl = `http://www.omdbapi.com/?${rMovieApiKey3}&t=${tempCity}`;
     fetch(apiUrl).then(function (Response) {
@@ -71,7 +78,7 @@ var getMoviePoster = function (movie) {
             })
             .catch(function (error) {
                 console.log("Error");
-                modal.style.display = "block";
+                modalError.style.display = "block";
             });
     });
 };
@@ -233,7 +240,8 @@ var searchHandler = function (title) {
     }
 };
 
-// //Event Listener for Submit Button
+// //Event Listeners for Submit Button
+submitBtnEl.addEventListener("click", formValidation)
 submitBtnEl.addEventListener("click", searchHandler);
 
 // Function to Create Search History Buttons
@@ -292,16 +300,19 @@ function genreToCuisine(genre) {
 };
 
 // Modal Functions
-span.onclick = function () {
-    modal.style.display = "none";
+function closeModal () {
+    modalBlank.style.display = "none";
+    modalError.style.display = "none";
 
 };
 
 window.onclick = function (event) {
-    if (event.target == modal) {
-        modal.style.display = "block";
+    if (event.target == modalBlank) {
+        modalBlank.style.display = "none";
     }
-
+    if (event.target == modalError) {
+        modalError.style.display = "none";
+    }
 };
 
 // Page Load
