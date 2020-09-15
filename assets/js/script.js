@@ -52,7 +52,7 @@ var formValidation = function() {
 // Movie Poster Fetch | OMDB API
 var getMoviePoster = function (movie) {
     var tempCity = movie.replace(' ', '%20')
-    var apiUrl = `http://www.omdbapi.com/?${rMovieApiKey3}&t=${tempCity}`;
+    var apiUrl = `https://www.omdbapi.com/?${rMovieApiKey3}&t=${tempCity}`;
     fetch(apiUrl).then(function (Response) {
 
         return Response.json().then(function (data) {
