@@ -15,4 +15,4 @@ Using a Materialize we created styles that give a professional look to the websi
 
 ## Link to deployed application
 ******************************************************************************************************************************************************************************************************************************
-[Horiseon webpage link] (https://richardflores009.github.io/Munch-A-Movie/)
+[Munch-A-Movie webpage link] (https://richardflores009.github.io/Munch-A-Movie/)
