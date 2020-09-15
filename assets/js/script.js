@@ -75,6 +75,7 @@ var getMoviePoster = function (movie) {
                 console.log(diet)
                 var lastMovie = JSON.parse(localStorage.getItem("movies"));
                 getRecipes(lastMovie[lastMovie.length - 1], diet);
+                console.log(lastMovie[lastMovie.length - 1], diet)
 
             })
             .catch(function (error) {
@@ -86,12 +87,13 @@ var getMoviePoster = function (movie) {
 
 // Recipes Fetch | Spoonacular
 var getRecipes = function (meal, diet) {
-
+    var cuisineDiet = diet.replace(' ', '%20')
     // Pass to Function to Determine Cuisine Type
     var cuisine = genreToCuisine(meal.genre);
 
-    var api = `https://api.spoonacular.com/recipes/random?number=3&tags=${cuisine}${diet}` + rRecipeApiKey3;
+    var api = `https://api.spoonacular.com/recipes/random?number=3&tags=${cuisine}${cuisineDiet}` + rRecipeApiKey3;
 
+    console.log(api)
     // Clear Previous Searches
     recipesContent.innerHTML = ' ';
 
@@ -103,7 +105,7 @@ var getRecipes = function (meal, diet) {
         })
         .then(function (data) {
             for (let i = 0; i < data.recipes.length; i++) {
-
+                console.log(data)
                 recipeHeader.style.display = "block";
                 var columnEl = document.createElement('div')
                 columnEl.setAttribute('class', 'col s12')
@@ -327,8 +329,7 @@ var dietPlan = function() {
            if (dietname == "Keto") {
                txt+= "ketogenic"
                return txt;
-           } //gluten free might need dash instead of space         
-            
+           }
             txt = txt + checkbox[1].innerText
             return txt;
         }
@@ -340,3 +341,10 @@ var dietPlan = function() {
 
 // Page Load
 window.addEventListener("load", titleToDisplay());
+
+// else if (dietname == "Gluten Free") {
+//     txt+= "glutenFree"
+//    }
+//     else if (dietname == "Dairy Free") {
+//     txt+= "dairyFree"
+// }
