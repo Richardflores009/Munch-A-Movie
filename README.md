@@ -9,7 +9,6 @@ Using a Materialize we created styles that give a professional look to the websi
 ## Screenshot
 ******************************************************************************************************************************************************************************************************************************
 
-### Screenshot:
 ![alt text](https://raw.githubusercontent.com/Richardflores009/Munch-A-Movie/master/assets/img/Screen%20Shot%202020-09-15%20at%2011.42.00.png "Top of webpage")
 
 ![alt text](https://raw.githubusercontent.com/Richardflores009/Munch-A-Movie/master/assets/img/Screen%20Shot%202020-09-15%20at%2011.42.15.png "Bottom of Webpage")
