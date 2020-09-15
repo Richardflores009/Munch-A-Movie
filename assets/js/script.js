@@ -52,7 +52,7 @@ var formValidation = function() {
 // Movie Poster Fetch | OMDB API
 var getMoviePoster = function (movie) {
     var tempCity = movie.replace(' ', '%20')
-    var apiUrl = `http://www.omdbapi.com/?${rMovieApiKey3}&t=${tempCity}`;
+    var apiUrl = `http://www.omdbapi.com/?${rMovieApiKey}&t=${tempCity}`;
     fetch(apiUrl).then(function (Response) {
 
         return Response.json().then(function (data) {
@@ -89,7 +89,7 @@ var getRecipes = function (meal) {
     // Pass to Function to Determine Cuisine Type
     var cuisine = genreToCuisine(meal.genre);
 
-    var api = `https://api.spoonacular.com/recipes/random?number=3&tags=${cuisine}` + rRecipeApiKey3;
+    var api = `https://api.spoonacular.com/recipes/random?number=3&tags=${cuisine}` + rRecipeApiKey;
 
     // Clear Previous Searches
     recipesContent.innerHTML = ' ';
