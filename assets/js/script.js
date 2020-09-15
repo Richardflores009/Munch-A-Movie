@@ -71,25 +71,26 @@ var getMoviePoster = function (movie) {
 
                 // Pass Movie Title and Poster to displayPoster Function
                 displayPoster(movieTitle, moviePoster);
-
+                var diet = dietPlan()
+                console.log(diet)
                 var lastMovie = JSON.parse(localStorage.getItem("movies"));
-                getRecipes(lastMovie[lastMovie.length - 1]);
+                getRecipes(lastMovie[lastMovie.length - 1], diet);
 
             })
             .catch(function (error) {
-                console.log("Error");
+                console.log(error);
                 modalError.style.display = "block";
             });
     });
 };
 
 // Recipes Fetch | Spoonacular
-var getRecipes = function (meal) {
+var getRecipes = function (meal, diet) {
 
     // Pass to Function to Determine Cuisine Type
     var cuisine = genreToCuisine(meal.genre);
 
-    var api = `https://api.spoonacular.com/recipes/random?number=3&tags=${cuisine}` + rRecipeApiKey3;
+    var api = `https://api.spoonacular.com/recipes/random?number=3&tags=${cuisine}${diet}` + rRecipeApiKey3;
 
     // Clear Previous Searches
     recipesContent.innerHTML = ' ';
@@ -283,8 +284,8 @@ function genreToCuisine(genre) {
         cuisine = "vietnamese"
     } else if (genre === "Horror") {
         cuisine = "indian"
-    } else if (genre === "Romantic") {
-        cuisine = "Thai"
+    } else if (genre === "Romance") {
+        cuisine = "thai"
     } else if (genre === "Sci-Fi") {
         cuisine = "chinese"
     } else if (genre === "Superhero") {
@@ -294,7 +295,7 @@ function genreToCuisine(genre) {
     } else if (genre === "Western") {
         cuisine = "southern"
     } else {
-        cuisine = "popular"
+        cuisine = "caribbean" || "greek"
     }
     return cuisine;
 };
@@ -313,7 +314,29 @@ window.onclick = function (event) {
     if (event.target == modalError) {
         modalError.style.display = "none";
     }
-};
+}
+var dietPlan = function() {
+    var dietoptions = document.querySelector("#dietlist");
+    var list = dietoptions.children
+    // console.log(dietoptions, list, list.length)
+    var txt = "&";
+    for (var j=0; j <list.length; j++)
+    {   var checkbox = list[j].children
+        if (checkbox[0].checked) {
+            var dietname = checkbox[1].innerText
+           if (dietname == "Keto") {
+               txt+= "ketogenic"
+               return txt;
+           } //gluten free might need dash instead of space         
+            
+            txt = txt + checkbox[1].innerText
+            return txt;
+        }
+
+    }
+    return "";
+
+}
 
 // Page Load
 window.addEventListener("load", titleToDisplay());
