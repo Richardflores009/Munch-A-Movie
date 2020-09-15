@@ -283,8 +283,8 @@ function genreToCuisine(genre) {
         cuisine = "vietnamese"
     } else if (genre === "Horror") {
         cuisine = "indian"
-    } else if (genre === "Romantic") {
-        cuisine = "Thai"
+    } else if (genre === "Romance") {
+        cuisine = "thai"
     } else if (genre === "Sci-Fi") {
         cuisine = "chinese"
     } else if (genre === "Superhero") {
@@ -294,7 +294,7 @@ function genreToCuisine(genre) {
     } else if (genre === "Western") {
         cuisine = "southern"
     } else {
-        cuisine = "popular"
+        cuisine = "greek"
     }
     return cuisine;
 };
