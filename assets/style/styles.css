@@ -3,7 +3,11 @@
     margin: 0;
     font-family: 'Bebas Neue', cursive;
 }
-/*used in multiple lines*/
+body {
+    background: black;
+}
+
+/*MULTIPLE ELEMENTS*/
 .column-header {
     color: red;
     border-bottom: thick double white ;
@@ -11,7 +15,15 @@
 .box-shadow {
     box-shadow: 0 5px 5px red;
 }
-/*header & navigation styles*/
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+.row-color {
+    background: black;
+}
+
+/*HEADER & NAV STYLES*/
 .nav-extended {
     background: black;
     color: white;
@@ -28,15 +40,14 @@
     font-size: 1vw;
     text-transform: uppercase;
 }
-/*ROW STYLES IMPORTANT*/
-.row {
-    display: flex;
-    flex-wrap: wrap;
+
+/*FORM STYLES*/
+form {
+    background: white;
 }
-.row-color {
-    background: black;
+.form-background {
+    background: white;
 }
-/*form column*/
 .form-style {
     padding: 50px;
     margin: 0 auto;
@@ -50,6 +61,7 @@
 }
 .diet-options {
     padding: 0 10px;
+    color: black;
 }
 .btn {
     width: 50%;
@@ -60,7 +72,8 @@
 .btn:hover {
     background: darkred;
 }
-/*left column styles*/
+
+/*LEFT COLUMN - SEARCH HISTORY DIV*/
 .collection {
     width: 100%;
     margin: 10px auto;
@@ -69,18 +82,28 @@
     margin: 10px 0;
     font-size: 20px;
 }
-/*middle column*/
+
+/*MIDDLE COLUMN - POSTER DIV*/
 .poster-img {
     margin: 0 auto;
     width: 100%;
     border-radius: 10px;
 }
-/*right column*/
+
+/*RIGHT COLUMN - RECIPE DIV*/
 .card-image {
     height: auto;
     width: 50%;
 }
-/*disable recipe description links*/
+.card-content  h4{
+    width: 100%;
+    text-align: left;
+}
+.card-content p {
+    text-decoration: none;
+}
+
+/*DISABLE RECIPE DESCRIPTION LINKS*/
 .disable-link {
     pointer-events:none;
     color: black;
@@ -90,7 +113,7 @@
     color: black;
     text-decoration: none; 
 }
-/* The Modal (background) */
+/*MODAL STYLES*/
 .modal {
     display: none; 
     position: fixed; 
@@ -103,7 +126,6 @@
     background-color: rgb(0,0,0);
     background-color: rgba(0,0,0,0.4);
   }
-  
   /* Modal Content/Box */
   .modal-content {
     background-color: #fefefe;
@@ -111,8 +133,11 @@
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
+    text-align: center;
   }
-  
+  .modal-content p {
+      font-size: 20px;
+  }
   /* Modal Close Button */
   .close {
     color: #aaa;
@@ -120,23 +145,81 @@
     font-size: 28px;
     font-weight: bold;
   }
-  
   .close:hover,
   .close:focus {
     color: black;
     text-decoration: none;
     cursor: pointer;
   }
-/*media queries*/                          
+
+/*MEDIA QUERY STYLES*/  
+@media screen and (min-width: 2560px) { /*add this!!!!!!!!!!!!!!!!!!*/
+    /*NAV STYLES*/
+    .nav-wrapper {
+        padding-top: 25px;
+    }
+    .nav-wrapper a {
+        font-size: 5vw;
+        padding: 25px;
+    }
+    .nav-content span {
+        font-size: 1.5vw;
+        margin-top: 60px;
+    }
+    /*FORM STYLES*/
+    form {
+        height: 500px;
+    }
+    form h4 {
+        font-size: 75px;
+    }
+    .form-style .row {
+        margin: 30px 0;
+        font-size: large;
+    }
+    .input-field input[type="text"] {
+        font-size: 1.5vw;
+        padding: 5px 0;
+        border-bottom: thin solid black;
+    }
+    .diet-options {
+        padding: 0 5px;
+    }
+    .btn {
+        margin: 20px 10px;                      
+        width: 50%;
+        font-size: 25px;
+        height: 35px;
+    }
+    /*COLUMN HEADERS*/ 
+    .column-header {
+        font-size: 2vw;
+    }
+    /*LEFT COLUMN - SEARCH HISTORY DIV*/
+    .collection-item {
+        font-size: 1vw;
+    }
+    /*RIGHT COLUMN - RECIPE DIV*/
+    .card-image img {
+        height: auto;
+        width: 100%;
+    }
+    .card-content h4 {
+        font-size: 1.5vw;
+    }
+    .card-content p {
+        font-size: 0.75vw;
+    }
+}                 
 @media screen and (max-width: 1200px) {
-    /*navigation*/
+    /*NAV STYLES*/
     .nav-wrapper a {
         font-size: 7vw;
     }
     .nav-content span {
         font-size: 2vw;
     }
-    /*form*/
+    /*FORM STYLES*/
     .diet-options {
         padding: 0 5px;
     }
@@ -145,14 +228,14 @@
     }
 }
 @media screen and (max-width: 980px) {
-    /*navigation*/
+    /*NAV STYLES*/
     .nav-wrapper a {
         font-size: 8vw;
     }
     .nav-content span {
         font-size: 3vw;
     }
-    /*form*/    
+    /*FORM STYLES*/    
     .diet-options {
         padding: 0 5px;
     }
@@ -161,14 +244,14 @@
     }
 }
 @media screen and (max-width: 768px) {
-    /*navigation*/
+    /*NAV STYLES*/
     .nav-wrapper a {
-        font-size: 9vw;
+        font-size: 7vw;
     }
     .nav-content span {
         font-size: 4vw;
     }
-    /*form*/
+    /*FORM STYLES*/
     .form-style {
         margin: 0 auto;
         padding: 0 500px;
@@ -178,19 +261,33 @@
     }
     .btn {
         width: 75%;
+        margin: 10px 0;
+    }
+    /*RIGHT COLUMN - RECIPE DIV*/
+    .card-action {
+        text-align: center;
+    }
+    .card-content h4 {
+        text-align: center;
+    }
+    .card-content p {
+        display: none;
     }
 }
 @media screen and (max-width: 575px) {
-    /*navigation*/
+    /*NAV STYLES*/
     .nav-wrapper a {
         font-size: 9vw;
     }
     .nav-content span {
         font-size: 5vw;
     }
-    /*form*/
+    /*FORM STYLES*/
     .btn {
         width: 100%;
+    }
+    .card-content h4 {
+        font-size: 5vw;
     }
 }
 
