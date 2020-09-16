@@ -4,7 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/png" href="./assets/img/favicon.png">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="assets/style/styles.css">
     <title>Munch-A-Movie</title>
@@ -24,12 +26,12 @@
     </header>
     <main>
         <!--User Input-->
-        <div class="row">
+        <div class="row form-background">
             <form class="col white form-style s10 m10 l6">
                 <h4>What movie are you watching tonight?</h4>
                 <div class="row">
                     <div class="input-field col s12 m12 l12">
-                        <input placeholder="Avengers, Coco, etc." id="food-search-input" type="text" class="validate">
+                        <input placeholder="Avengers, Coco, etc." id="food-search-input" type="text">
                     </div>
                 </div>
                 <div>
@@ -57,7 +59,7 @@
                         </label>
                     </p>
                 </div>
-                <button class="btn waves-effect waves-light" type="submit">Search</button>
+                <button class="btn waves-effect waves-light" type="submit" class="validate"> <i class="fa fa-search"></i> Search</button>
             </form>
         </div>
 
