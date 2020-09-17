@@ -14,6 +14,7 @@ var rRecipeApiKey = "&apiKey=0c7c604f01a143d598df0735356390c3";
 var rRecipeApiKey2 = "&apiKey=119f114f6e334171834908713fb964b8";
 var rRecipeApiKey3 = "&apiKey=8496184c37164d1a9b0b16b42f58bc2b";
 var rRecipeApiKey4 = "&apiKey=fd2ce1b521e34e669afec9b791093734";
+var rRecipeApiKey5 = "&apiKey=feade83315274dd8a17771172b50cd57";
 var rMovieApiKey = "apikey=84c248ca";
 var rMovieApiKey2 = "apikey=67c1ed90";
 var rMovieApiKey3 = "apikey=a05b3cd4";
@@ -91,7 +92,7 @@ var getRecipes = function (meal, diet) {
     // Pass to Function to Determine Cuisine Type
     var cuisine = genreToCuisine(meal.genre);
 
-    var api = `https://api.spoonacular.com/recipes/random?number=3&tags=${cuisine}${cuisineDiet}` + rRecipeApiKey3;
+    var api = `https://api.spoonacular.com/recipes/random?number=3&tags=${cuisine}${cuisineDiet}` + rRecipeApiKey5;
 
     console.log(api)
     // Clear Previous Searches
