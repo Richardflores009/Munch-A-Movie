@@ -277,16 +277,26 @@ function genreToCuisine(genre) {
         cuisine = "indian"
     } else if (genre === "Comedy") {
         cuisine = "mexican"
+    } else if (genre ==="Crime") {
+        cuisine = "american"
     } else if (genre === "Documentary") {
         cuisine = "spanish"
     } else if (genre === "Drama") {
-        cuisine = "french"
+        cuisine = "American"
     } else if (genre === "Family" || genre === "Animation") {
         cuisine = "american"
     } else if (genre === "Fantasy") {
         cuisine = "vietnamese"
+    } else if (genre ==="History") {
+        cuisine = "american"
     } else if (genre === "Horror") {
         cuisine = "indian"
+    } else if (genre ==="Music") {
+        cuisine = "american"
+    } else if (genre ==="Musical") {
+        cuisine = "american"
+    } else if (genre ==="N/A") {
+        cuisine = "american"
     } else if (genre === "Romance") {
         cuisine = "thai"
     } else if (genre === "Sci-Fi") {
@@ -295,10 +305,10 @@ function genreToCuisine(genre) {
         cuisine = "mediterranean"
     } else if (genre === "Thriller" || genre === "Mystery") {
         cuisine = "cajun"
+    } else if (genre ==="War") {
+        cuisine = "american"
     } else if (genre === "Western") {
         cuisine = "southern"
-    } else {
-        cuisine = "caribbean" || "greek"
     }
     return cuisine;
 };
