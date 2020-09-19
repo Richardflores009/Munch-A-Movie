@@ -282,7 +282,7 @@ function genreToCuisine(genre) {
     } else if (genre === "Documentary") {
         cuisine = "spanish"
     } else if (genre === "Drama") {
-        cuisine = "American"
+        cuisine = "french"
     } else if (genre === "Family" || genre === "Animation") {
         cuisine = "american"
     } else if (genre === "Fantasy") {
@@ -290,7 +290,7 @@ function genreToCuisine(genre) {
     } else if (genre ==="History") {
         cuisine = "american"
     } else if (genre === "Horror") {
-        cuisine = "indian"
+        cuisine = "italian"
     } else if (genre ==="Music") {
         cuisine = "american"
     } else if (genre ==="Musical") {
@@ -301,6 +301,10 @@ function genreToCuisine(genre) {
         cuisine = "thai"
     } else if (genre === "Sci-Fi") {
         cuisine = "chinese"
+    } else if (genre === "Short") {
+        cuisine = "english"
+    } else if (genre === "Sports") {
+        cuisine = "american"
     } else if (genre === "Superhero") {
         cuisine = "mediterranean"
     } else if (genre === "Thriller" || genre === "Mystery") {
