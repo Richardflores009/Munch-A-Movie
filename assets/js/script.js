@@ -303,7 +303,7 @@ function genreToCuisine(genre) {
         cuisine = "chinese"
     } else if (genre === "Short") {
         cuisine = "english"
-    } else if (genre === "Sports") {
+    } else if (genre === "Sport") {
         cuisine = "american"
     } else if (genre === "Superhero") {
         cuisine = "mediterranean"
