@@ -72,29 +72,24 @@ var getMoviePoster = function (movie) {
 
                 // Pass Movie Title and Poster to displayPoster Function
                 displayPoster(movieTitle, moviePoster);
-                var diet = dietPlan()
-                console.log(diet)
                 var lastMovie = JSON.parse(localStorage.getItem("movies"));
-                getRecipes(lastMovie[lastMovie.length - 1], diet);
-                console.log(lastMovie[lastMovie.length - 1], diet)
+                getRecipes(lastMovie[lastMovie.length - 1]);
 
             })
             .catch(function (error) {
-                console.log(error);
                 modalError.style.display = "block";
             });
     });
 };
 
 // Recipes Fetch | Spoonacular
-var getRecipes = function (meal, diet) {
-    var cuisineDiet = diet.replace(' ', '%20')
+var getRecipes = function (meal) {
+    
     // Pass to Function to Determine Cuisine Type
     var cuisine = genreToCuisine(meal.genre);
 
-    var api = `https://api.spoonacular.com/recipes/random?number=3&tags=${cuisine}${cuisineDiet}` + rRecipeApiKey5;
+    var api = `https://api.spoonacular.com/recipes/random?number=3&tags=${cuisine}` + rRecipeApiKey5;
 
-    console.log(api)
     // Clear Previous Searches
     recipesContent.innerHTML = ' ';
 
@@ -106,7 +101,6 @@ var getRecipes = function (meal, diet) {
         })
         .then(function (data) {
             for (let i = 0; i < data.recipes.length; i++) {
-                console.log(data)
                 recipeHeader.style.display = "block";
                 var columnEl = document.createElement('div')
                 columnEl.setAttribute('class', 'col s12')
@@ -332,34 +326,6 @@ window.onclick = function (event) {
         modalError.style.display = "none";
     }
 }
-var dietPlan = function() {
-    var dietoptions = document.querySelector("#dietlist");
-    var list = dietoptions.children
-    // console.log(dietoptions, list, list.length)
-    var txt = "&";
-    for (var j=0; j <list.length; j++)
-    {   var checkbox = list[j].children
-        if (checkbox[0].checked) {
-            var dietname = checkbox[1].innerText
-           if (dietname == "Keto") {
-               txt+= "ketogenic"
-               return txt;
-           }
-            txt = txt + checkbox[1].innerText
-            return txt;
-        }
-
-    }
-    return "";
-
-}
 
 // Page Load
 window.addEventListener("load", titleToDisplay());
-
-// else if (dietname == "Gluten Free") {
-//     txt+= "glutenFree"
-//    }
-//     else if (dietname == "Dairy Free") {
-//     txt+= "dairyFree"
-// }
